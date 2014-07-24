@@ -1,0 +1,4 @@
+services:
+    multilanguagesupport.model:
+            class:        BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Services\MultiLanguageSupportModel
+            arguments:    [@kernel, "default", "doctrine"]
