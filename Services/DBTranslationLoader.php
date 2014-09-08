@@ -19,7 +19,7 @@
  *
  */
 
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Services;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Services;
 
 use BiberLtd\Core\CoreModel;
 use BiberLtd\Core\Exceptions as CoreExceptions;

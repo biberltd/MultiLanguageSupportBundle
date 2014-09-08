@@ -131,7 +131,7 @@
     <orm-attributes>
       <attribute name="filename-format">entity-name-only</attribute>
       <attribute name="file-suffix">without-suffix</attribute>
-      <attribute name="namespace">BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity</attribute>
+      <attribute name="namespace">BiberLtd\Bundle\MultiLanguageSupportBundle\Entity</attribute>
     </orm-attributes>
   </module>
   <visual-data>

@@ -16,7 +16,7 @@
  *
  */
 
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Controller;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Controller;
 
 use BiberLtd\Core\CoreController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,

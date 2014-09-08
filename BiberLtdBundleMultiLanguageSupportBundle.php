@@ -1,11 +1,11 @@
 <?php
 
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class BiberLtdCoreBundlesMultiLanguageSupportBundle extends Bundle
+class BiberLtdBundleMultiLanguageSupportBundle extends Bundle
 {
 
 }

@@ -19,7 +19,7 @@
  *
  */
 
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Controller;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpKernel\Exception,
