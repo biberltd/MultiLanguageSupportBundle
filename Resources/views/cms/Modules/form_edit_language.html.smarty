@@ -1,0 +1,24 @@
+{*
+    INFO:
+    =============================================================================
+    Name:           MultiLanguageSupportBundle/views/Modules/form_edit_language.html.smarty
+    Author:         Can Berkol
+    Version:        1.0.0
+    Date:           29.01.2014
+
+    Description:    Language Edit Form
+
+    BLOCKS:
+    =============================================================================
+    N/A
+
+    EXTENDS:
+    =============================================================================
+    N/A
+
+    PARAMETERS:
+    =============================================================================
+    renderedLanguageForm                  string
+
+*}
+{$renderedLanguageForm}

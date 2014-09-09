@@ -1,0 +1,9 @@
+parameters:
+  # MultiLanguageSupportBundle actions
+  # actionname: id
+  # Make sure that keys are unique.
+  actions:
+      language_added:                       13
+      language_removed:                     14
+      language_modified:                    15
+      list_languages:                       16

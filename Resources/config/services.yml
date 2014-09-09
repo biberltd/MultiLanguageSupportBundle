@@ -1,7 +1,4 @@
-parameters:
-#    biber_ltd_multi_language_support.example.class: BiberLtd\Bundle\MultiLanguageSupportBundle\Example
-
 services:
-#    biber_ltd_multi_language_support.example:
-#        class: %biber_ltd_multi_language_support.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    multilanguagesupport.model:
+            class:        BiberLtd\Bundle\MultiLanguageSupportBundle\Services\MultiLanguageSupportModel
+            arguments:    [@kernel, "default", "doctrine"]
