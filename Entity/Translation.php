@@ -1,8 +1,8 @@
 <?php
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Entity;
 /**
  * @name        translation
- * @package		BiberLtd\Core\AccessManagementBundle
+ * @package		BiberLtd\Bundle\CoreBundle\AccessManagementBundle
  *
  * @author		Can Berkol
  * @version     1.0.0
@@ -14,7 +14,7 @@ namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity;
  * @description Model / Entity class.
  *
  */
-use BiberLtd\Core\CoreLocalizableEntity;
+use BiberLtd\Bundle\CoreBundle\CoreLocalizableEntity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /** 
@@ -68,14 +68,14 @@ class Translation extends CoreLocalizableEntity
 
     /** 
      * @ORM\OneToMany(
-     *     targetEntity="BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity\TranslationLocalization",
+     *     targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization",
      *     mappedBy="translation"
      * )
      */
     protected $localizations;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\SiteManagementBundle\Entity\Site")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\SiteManagementBundle\Entity\Site")
      * @ORM\JoinColumn(name="site", referencedColumnName="id", onDelete="CASCADE")
      */
     private $site;

@@ -1,5 +1,5 @@
 <?php
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /** 
@@ -33,7 +33,7 @@ class TranslationLocalization
 
     /** 
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity\Language")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language")
      * @ORM\JoinColumn(name="language", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $language;
@@ -41,7 +41,7 @@ class TranslationLocalization
     /** 
      * @ORM\Id
      * @ORM\ManyToOne(
-     *     targetEntity="BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity\Translation",
+     *     targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation",
      *     inversedBy="localizations"
      * )
      * @ORM\JoinColumn(name="translation", referencedColumnName="id", onDelete="CASCADE")

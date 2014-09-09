@@ -1,7 +1,7 @@
 <?php
 /**
  * @name        InvalidLanguageException
- * @package		BiberLtd\Core\Bundles\MultiLanguageSupportBundle
+ * @package		BiberLtd\Bundle\MultiLanguageSupportBundle
  *
  * @author		Can Berkol
  * @version     1.0.1
@@ -13,9 +13,9 @@
  * @description Exception to handle cURL connection problems.
  *
  */
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Exceptions;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Exceptions;
 
-use BiberLtd\Bundles\ExceptionBundle\Services;
+use BiberLtd\Bundle\ExceptionBundle\Services;
 
 class InvalidLanguageException extends Services\ExceptionAdapter {
     public function __construct($kernel, $msg = "", $code = 'MLS001', Exception $previous = null) {

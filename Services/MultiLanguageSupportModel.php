@@ -49,14 +49,14 @@
  *
  */
 
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Services;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Services;
 /** Required for better & instant error handling for the support team */
-use BiberLtd\Core\CoreModel;
-use BiberLtd\Core\Exceptions as CoreExceptions;
+use BiberLtd\Bundle\CoreBundle\CoreModel;
+use BiberLtd\Bundle\CoreBundle\Exceptions as CoreExceptions;
 /** Entities to be used */
-use BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity as BundleEntity;
+use BiberLtd\Bundle\MultiLanguageSupportBundle\Entity as BundleEntity;
 /** External Services To Use */
-use BiberLtd\Core\Bundles\SiteManagementBundle\Services as SMServices;
+use BiberLtd\Bundle\SiteManagementBundle\Services as SMServices;
 
 class MultiLanguageSupportModel extends CoreModel {
 

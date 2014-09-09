@@ -19,10 +19,10 @@
  *
  */
 
-namespace BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Services;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Services;
 
-use BiberLtd\Core\CoreModel;
-use BiberLtd\Core\Exceptions as CoreExceptions;
+use BiberLtd\Bundle\CoreBundle\CoreModel;
+use BiberLtd\Bundle\CoreBundle\Exceptions as CoreExceptions;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 
