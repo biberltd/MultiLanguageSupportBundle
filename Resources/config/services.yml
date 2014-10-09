@@ -2,3 +2,8 @@ services:
     multilanguagesupport.model:
             class:        BiberLtd\Bundle\MultiLanguageSupportBundle\Services\MultiLanguageSupportModel
             arguments:    [@kernel, "default", "doctrine"]
+    translation.loader.db:
+           class:        BiberLtd\Bundle\MultiLanguageSupportBundle\Services\DBTranslationLoader
+           arguments:    [@kernel, "default", "doctrine"]
+           tags:
+               - { name: translation.loader, alias: db}
