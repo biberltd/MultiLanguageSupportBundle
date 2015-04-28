@@ -7,17 +7,14 @@
  *
  * @author		Can Berkol
  *
- * @version     1.0.0
- * @date        26.04.2015
+ * @version     1.0.1
+ * @date        28.04.2015
  *
  */
 
-namespace BiberLtd\Bundle\MultiLanguageSupport\Listeners;
+namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Listeners;
 use BiberLtd\Bundle\CoreBundle\Core as Core;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpKernel\Event;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use BiberLtd\Bundle\MultiLanguageSupportBundle\Services as MLSServices;
 
@@ -58,7 +55,7 @@ class MLSListener extends Core{
             'condition' => array(
                 array(
                     'glue' => 'and',
-                    'condition' => array('column' => 'l.site', 'comparison' => '=', 'value' => $kernel->getContainer()->getParameter('site_id')),
+					'condition' => array('column' => 'l.site', 'comparison' => '=', 'value' => $kernel->getContainer()->get('session')->get('_currentSiteId')),
                 )
             )
         );
@@ -162,6 +159,13 @@ class MLSListener extends Core{
 }
 /**
  * Change Log
+ * ****************************************
+ * v1.0.1						28.04.2015
+ * TW #
+ * Can Berkol
+ * ****************************************
+ * - Unused "use" statements removed.
+ *
  * ****************************************
  * v1.0.0						26.04.2015
  * TW #
