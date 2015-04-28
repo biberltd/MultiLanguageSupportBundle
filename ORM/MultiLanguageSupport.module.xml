@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<skipper version="3.0.0.1104" mvc="Symfony2" orm="Doctrine2">
+<skipper version="3.1.2.1193" mvc="Symfony2" orm="Doctrine2">
   <module name="MultiLanguageSupportBundle" import-format="Doctrine2Php" import-path="../Entity" uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed">
     <entity name="Language" description="Stores language definitions to be used in the site." uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514">
       <field name="id" description="System given id." type="integer" size="5" required="true" unique="true" primary="true" auto-increment="true" uuid="93714214-3a52-4799-9c0a-f74e937d83f0"/>
@@ -45,7 +45,7 @@
         <attribute name="export-file-name">Language.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="Language" to="Site" caption="idx_f_language_site" inverse-alias="site" uuid="dcbf1caf-6474-4dfe-90be-7b58aa71c5c7">
+    <association from="Language" to="Site" caption="idx_f_language_site" inverse-alias="site" many-owner="true" many-inverse="false" uuid="dcbf1caf-6474-4dfe-90be-7b58aa71c5c7">
       <association-field from="site" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
@@ -82,7 +82,7 @@
         <attribute name="export-file-name">Translation.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="Translation" to="Site" caption="idx_f_translation_site" inverse-alias="site" uuid="691cd89a-3534-4a4c-bf70-544fa15a4c35">
+    <association from="Translation" to="Site" caption="idx_f_translation_site" inverse-alias="site" many-owner="true" many-inverse="false" uuid="691cd89a-3534-4a4c-bf70-544fa15a4c35">
       <association-field from="site" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
@@ -114,13 +114,13 @@
         <attribute name="export-file-name">TranslationLocalization.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="TranslationLocalization" to="Language" caption="idx_f_translation_localization_language" inverse-alias="language" uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7">
+    <association from="TranslationLocalization" to="Language" caption="idx_f_translation_localization_language" inverse-alias="language" many-owner="true" many-inverse="false" parent-required="true" uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7">
       <association-field from="language" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
-    <association from="TranslationLocalization" to="Translation" caption="idx_f_translation_localization_translation" owner-alias="localizations" inverse-alias="translation" uuid="71f15a54-6bc9-4510-84b1-2b2817781440">
+    <association from="TranslationLocalization" to="Translation" caption="idx_f_translation_localization_translation" owner-alias="localizations" inverse-alias="translation" many-owner="true" many-inverse="false" uuid="71f15a54-6bc9-4510-84b1-2b2817781440">
       <association-field from="translation" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
@@ -131,7 +131,7 @@
     <orm-attributes>
       <attribute name="filename-format">entity-name-only</attribute>
       <attribute name="file-suffix">without-suffix</attribute>
-      <attribute name="namespace">BiberLtd\Bundle\MultiLanguageSupportBundle\Entity</attribute>
+      <attribute name="namespace">BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity</attribute>
     </orm-attributes>
   </module>
   <visual-data>
