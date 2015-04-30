@@ -1,12 +1,12 @@
 <?php
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Entity;
 /**
- * @name        translation
- * @package		BiberLtd\Bundle\CoreBundle\AccessManagementBundle
+ * @name        Translation
+ * @package		BiberLtd\Bundle\CoreBundle\MultiLanguageSupportBundle
  *
  * @author		Can Berkol
- * @version     1.0.0
- * @date        27.03.2014
+ * @version     1.0.1
+ * @date        30.04.2015
  *
  * @copyright   Biber Ltd. (http://www.biberltd.com)
  * @license     GPL v3.0
@@ -17,18 +17,19 @@ namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Entity;
 use BiberLtd\Bundle\CoreBundle\CoreLocalizableEntity;
 use Doctrine\ORM\Mapping AS ORM;
 
-/** 
+/**
  * @ORM\Entity
  * @ORM\Table(
  *     name="translation",
  *     options={"charset":"utf8","collate":"utf8_turkish_ci","engine":"innodb"},
  *     indexes={
- *         @ORM\Index(name="idx_n_translation_date_added", columns={"date_added"}),
- *         @ORM\Index(name="idx_n_translation_date_updated", columns={"date_updated"})
+ *         @ORM\Index(name="idxNTranslationDateAdded", columns={"date_added"}),
+ *         @ORM\Index(name="idxNTranslationDateUpdated", columns={"date_updated"}),
+ *         @ORM\Index(name="idxNTranslationDateRemoved", columns={"date_removed"})
  *     },
  *     uniqueConstraints={
- *         @ORM\UniqueConstraint(name="idx_u_translation_id", columns={"id"}),
- *         @ORM\UniqueConstraint(name="idx_u_translation_key", columns={"key","site"})
+ *         @ORM\UniqueConstraint(name="idxUTranslationId", columns={"id"}),
+ *         @ORM\UniqueConstraint(name="idxUTranslationKey", columns={"key","site"})
  *     }
  * )
  */
@@ -66,6 +67,11 @@ class Translation extends CoreLocalizableEntity
      */
     public $date_updated;
 
+	/**
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	public $date_removed;
+
     /** 
      * @ORM\OneToMany(
      *     targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization",
@@ -86,8 +92,7 @@ class Translation extends CoreLocalizableEntity
 
     /**
      * @name            getId()
-     *  				Gets $id property.
-     * .
+	 *
      * @author          Murat Ünal
      * @since			1.0.0
      * @version         1.0.0
@@ -100,9 +105,7 @@ class Translation extends CoreLocalizableEntity
 
     /**
      * @name            setKey ()
-     *                  Sets the key property.
-     *                  Updates the data only if stored value and value to be set are different.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -139,9 +142,7 @@ class Translation extends CoreLocalizableEntity
 
     /**
      * @name            setSite ()
-     *                  Sets the site property.
-     *                  Updates the data only if stored value and value to be set are different.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -163,8 +164,7 @@ class Translation extends CoreLocalizableEntity
 
     /**
      * @name            getSite ()
-     *                  Returns the value of site property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -178,9 +178,7 @@ class Translation extends CoreLocalizableEntity
 
     /**
      * @name            setInstructions()
-     *                  Sets the instructions property.
-     *                  Updates the data only if stored value and value to be set are different.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -202,8 +200,7 @@ class Translation extends CoreLocalizableEntity
 
     /**
      * @name            getInstructions()
-     *                  Returns the value of instructions property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -216,9 +213,7 @@ class Translation extends CoreLocalizableEntity
     }
     /**
      * @name            setDomain()
-     *                  Sets the domain property.
-     *                  Updates the data only if stored value and value to be set are different.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -240,8 +235,7 @@ class Translation extends CoreLocalizableEntity
 
     /**
      * @name            getDomain()
-     *                  Returns the value of domain property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -255,6 +249,13 @@ class Translation extends CoreLocalizableEntity
 }
 /**
  * Change Log:
+ * **************************************
+ * v1.0.1                      30.04.2015
+ * TW #
+ * Can Berkol
+ * **************************************
+ * ORM Changes.
+ *
  * **************************************
  * v1.0.0                      Can Berkol
  * 27.03.2014

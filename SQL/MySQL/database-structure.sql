@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2015-04-27 15:48:06
+Date: 2015-04-30 20:24:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,12 +28,12 @@ CREATE TABLE `language` (
   `site` int(10) unsigned DEFAULT NULL COMMENT 'Site that language resides in.',
   `status` char(1) COLLATE utf8_turkish_ci NOT NULL DEFAULT 'a' COMMENT 'a:active, i:inactive',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_u_language_id` (`id`) USING BTREE,
-  UNIQUE KEY `idx_u_language_url_key` (`url_key`,`site`) USING BTREE,
-  UNIQUE KEY `idx_u_language_iso_code` (`iso_code`,`site`) USING BTREE,
-  KEY `idx_n_language_schema` (`schema`,`site`) USING BTREE,
-  KEY `idx_f_language_site` (`site`) USING BTREE,
-  CONSTRAINT `idx_f_language_site` FOREIGN KEY (`site`) REFERENCES `site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `idxULanguageId` (`id`) USING BTREE,
+  UNIQUE KEY `idxULanguageUrlKey` (`url_key`,`site`) USING BTREE,
+  UNIQUE KEY `idxULanguageIsoCode` (`iso_code`,`site`) USING BTREE,
+  KEY `idxULanguageSchema` (`schema`,`site`) USING BTREE,
+  KEY `idxFSiteOfLanguage` (`site`) USING BTREE,
+  CONSTRAINT `idxFSiteOfLanguage` FOREIGN KEY (`site`) REFERENCES `site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
@@ -47,14 +47,16 @@ CREATE TABLE `translation` (
   `instructions` varchar(255) COLLATE utf8_turkish_ci DEFAULT NULL COMMENT 'Translation instructions if exists.',
   `date_added` datetime NOT NULL COMMENT 'Date when the translation is added.',
   `date_updated` datetime NOT NULL COMMENT 'Date when the translation is last updated.',
+  `date_removed` datetime DEFAULT NULL COMMENT 'Date when the entry is marked as removed.',
   `site` int(10) unsigned DEFAULT NULL COMMENT 'Site that translation belongs to.',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_u_translation_id` (`id`) USING BTREE,
-  UNIQUE KEY `idx_u_translation_key` (`key`,`site`) USING BTREE,
-  KEY `idx_n_translation_date_added` (`date_added`) USING BTREE,
-  KEY `idx_n_translation_date_updated` (`date_updated`) USING BTREE,
-  KEY `idx_f_translation_site` (`site`) USING BTREE,
-  CONSTRAINT `idx_f_translation_site` FOREIGN KEY (`site`) REFERENCES `translation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `idxUTranslationId` (`id`) USING BTREE,
+  UNIQUE KEY `idxUTranslationKeu` (`key`,`site`) USING BTREE,
+  KEY `iidxNTranslationDateAdded` (`date_added`) USING BTREE,
+  KEY `idxNTranslationDateUpdated` (`date_updated`) USING BTREE,
+  KEY `idxFSiteOfTranslation` (`site`) USING BTREE,
+  KEY `idxNTranslationDateRemoved` (`date_removed`),
+  CONSTRAINT `idxFSiteOfTranslation` FOREIGN KEY (`site`) REFERENCES `translation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
@@ -65,14 +67,10 @@ CREATE TABLE `translation_localization` (
   `translation` int(20) unsigned NOT NULL COMMENT 'Translated key.',
   `language` int(5) unsigned NOT NULL COMMENT 'Translation language.',
   `phrase` text COLLATE utf8_turkish_ci NOT NULL COMMENT 'Translation phrase.',
-  `date_added` datetime NOT NULL COMMENT 'Date when the phrase is added.',
-  `date_updated` datetime DEFAULT NULL COMMENT 'Date when the phrase last updated.',
   PRIMARY KEY (`translation`,`language`),
-  UNIQUE KEY `idx_u_translation_localization` (`translation`,`language`) USING BTREE,
-  KEY `idx_n_translation_localization_date_added` (`date_added`) USING BTREE,
-  KEY `idx_n_translation_localization_date_updated` (`date_updated`) USING BTREE,
-  KEY `idx_f_translation_localization_language` (`language`) USING BTREE,
-  KEY `idx_f_translation_localication_translation` (`translation`) USING BTREE,
-  CONSTRAINT `idx_f_translation_localization_language` FOREIGN KEY (`language`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `idx_f_translation_localization_translation` FOREIGN KEY (`translation`) REFERENCES `translation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `idxUTranslationLocalization` (`translation`,`language`) USING BTREE,
+  KEY `idxFTranslationLocalizationLanguage` (`language`) USING BTREE,
+  KEY `idxFLocalizedTranslation` (`translation`) USING BTREE,
+  CONSTRAINT `idxFLocalizedTranslation` FOREIGN KEY (`translation`) REFERENCES `translation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idxFTranslationLocalizationLanguage` FOREIGN KEY (`language`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci ROW_FORMAT=COMPACT;

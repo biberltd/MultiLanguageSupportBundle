@@ -21,18 +21,18 @@
           <attribute name="column">`status`</attribute>
         </orm-attributes>
       </field>
-      <index name="idx_u_language_id" unique="true">
+      <index name="idxULanguageId" unique="true">
         <index-field name="id"/>
       </index>
-      <index name="idx_u_language_url_key" unique="true">
+      <index name="idxULanguageUrlKey" unique="true">
         <index-field name="url_key"/>
         <index-field name="site"/>
       </index>
-      <index name="idx_u_language_iso_code">
+      <index name="idxULanguageIsoCode">
         <index-field name="iso_code"/>
         <index-field name="site"/>
       </index>
-      <index name="idx_n_language_schema">
+      <index name="idxULanguageSchema">
         <index-field name="schema"/>
       </index>
       <orm-attributes>
@@ -45,7 +45,7 @@
         <attribute name="export-file-name">Language.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="Language" to="Site" caption="idx_f_language_site" inverse-alias="site" many-owner="true" many-inverse="false" uuid="dcbf1caf-6474-4dfe-90be-7b58aa71c5c7">
+    <association from="Language" to="Site" caption="idxFSiteOfLanguage" inverse-alias="site" many-owner="true" many-inverse="false" uuid="dcbf1caf-6474-4dfe-90be-7b58aa71c5c7">
       <association-field from="site" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
@@ -58,19 +58,23 @@
       <field name="instructions" description="Translation instructions if exists." type="string" size="255" uuid="46926301-af57-4508-af38-25e2ce983097"/>
       <field name="date_added" description="Date when the translation is added." type="datetime" required="true" uuid="7429e347-02fd-41ab-ad4e-e22e98de713c"/>
       <field name="date_updated" description="Date when the translation is updated." type="datetime" required="true" uuid="879c9cc9-5930-4b1d-979b-401539dfef7a"/>
+      <field name="date_removed" description="Date when the entry is marked as removed." type="datetime" uuid="714f6168-d980-4b98-a23e-e978f733ecf4"/>
       <field name="site" description="Site that translation belongs to, if any." type="integer" size="10" uuid="b617238f-a2b9-4917-ab7d-9db095d514e8"/>
-      <index name="idx_u_translation_id" unique="true">
+      <index name="idxUTranslationId" unique="true">
         <index-field name="id"/>
       </index>
-      <index name="idx_u_translation_key" unique="true">
+      <index name="idxUTranslationKey" unique="true">
         <index-field name="key"/>
         <index-field name="site"/>
       </index>
-      <index name="idx_n_translation_date_added">
+      <index name="idxNTranslationDateAdded">
         <index-field name="date_added"/>
       </index>
-      <index name="idx_n_translation_date_updated">
+      <index name="idxNTranslationDateUpdated">
         <index-field name="date_updated"/>
+      </index>
+      <index name="idxNTranslationDateRemoved">
+        <index-field name="date_removed"/>
       </index>
       <orm-attributes>
         <attribute name="options">
@@ -82,27 +86,19 @@
         <attribute name="export-file-name">Translation.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="Translation" to="Site" caption="idx_f_translation_site" inverse-alias="site" many-owner="true" many-inverse="false" uuid="691cd89a-3534-4a4c-bf70-544fa15a4c35">
+    <association from="Translation" to="Site" caption="idxFSiteOfTranslation" inverse-alias="site" many-owner="true" many-inverse="false" uuid="691cd89a-3534-4a4c-bf70-544fa15a4c35">
       <association-field from="site" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
     <entity name="TranslationLocalization" description="Holds localized translation values." uuid="2d0a30b3-246d-47fa-b198-331e87d4a439">
-      <field name="translation" description="Localized translation." type="integer" size="20" primary="true" uuid="11e947c3-cd20-40aa-b05f-aaf56764ee96"/>
+      <field name="translation" description="Localized translation." type="integer" size="20" required="true" primary="true" uuid="11e947c3-cd20-40aa-b05f-aaf56764ee96"/>
       <field name="language" description="Localizati&#x131;n language." type="integer" size="5" required="true" primary="true" uuid="9cf7a832-5166-4d19-b011-b8efeabefbd9"/>
       <field name="phrase" description="Localized value." type="text" required="true" uuid="e27b9354-801e-4560-8d89-5c25d3155026"/>
-      <field name="date_added" description="Date when the translation added." type="datetime" required="true" uuid="25c845ec-a1a6-4995-91be-ed6c7b07b515"/>
-      <field name="date_updated" description="Date when the translation is last updated." type="datetime" required="true" uuid="d3ec4141-557d-420b-944d-15d6fb787e55"/>
-      <index name="idx_u_translation_localization" unique="true">
+      <index name="idxUTranslationLocalization" unique="true">
         <index-field name="translation"/>
         <index-field name="language"/>
-      </index>
-      <index name="idx_n_translation_localization_date_added">
-        <index-field name="date_added"/>
-      </index>
-      <index name="idx_n_translation_localization_date_updated">
-        <index-field name="date_updated"/>
       </index>
       <orm-attributes>
         <attribute name="options">
@@ -114,20 +110,18 @@
         <attribute name="export-file-name">TranslationLocalization.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="TranslationLocalization" to="Language" caption="idx_f_translation_localization_language" inverse-alias="language" many-owner="true" many-inverse="false" parent-required="true" uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7">
+    <association from="TranslationLocalization" to="Language" caption="idxFTranslationLocalizationLanguage" inverse-alias="language" many-owner="true" many-inverse="false" parent-required="true" uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7">
       <association-field from="language" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
-    <association from="TranslationLocalization" to="Translation" caption="idx_f_translation_localization_translation" owner-alias="localizations" inverse-alias="translation" many-owner="true" many-inverse="false" uuid="71f15a54-6bc9-4510-84b1-2b2817781440">
+    <association from="TranslationLocalization" to="Translation" caption="idxFLocalizedTranslation" owner-alias="localizations" inverse-alias="translation" many-owner="true" many-inverse="false" parent-required="true" uuid="71f15a54-6bc9-4510-84b1-2b2817781440">
       <association-field from="translation" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
-    <comment caption="MultiLanguageSupportBundle Pricing" description="language: 165 TL&#10;translation: 145 TL&#10;translation_localization: 150 TL&#10;&#10;toplam: 460 TL" uuid="b5a00a6f-6b73-45c1-93be-bbf482a19db0"/>
-    <comment caption="MultiLanguageSupportBundle Pricing" description="language: 165 TL&#10;translation: 145 TL&#10;translation_localization: 150 TL&#10;&#10;toplam: 460 TL" uuid="b5a00a6f-6b73-45c1-93be-bbf482a19db0"/>
     <orm-attributes>
       <attribute name="filename-format">entity-name-only</attribute>
       <attribute name="file-suffix">without-suffix</attribute>
@@ -139,6 +133,5 @@
     <entity uuid="2d0a30b3-246d-47fa-b198-331e87d4a439" bg-color="4294967295" hdr-color="4292006610" position-x="500" position-y="194" size-x="0" size-x2="126" size-y="0" size-y2="87"/>
     <entity uuid="41bcf7a2-e5e3-42a8-af5a-39de1f0e86ff" bg-color="4294967295" hdr-color="4292006610" position-x="514" position-y="-42" size-x="0" size-x2="126" size-y="0" size-y2="101"/>
     <entity uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514" bg-color="4294967295" hdr-color="4292006610" position-x="291" position-y="53" size-x="0" size-x2="109" size-y="0" size-y2="101"/>
-    <comment uuid="b5a00a6f-6b73-45c1-93be-bbf482a19db0" bg-color="4294941861" position-x="1" position-y="-38" size-x="0" size-x2="181" size-y="0" size-y2="80" txt-color="4278190080"/>
   </visual-data>
 </skipper>

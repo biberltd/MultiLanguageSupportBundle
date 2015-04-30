@@ -5,8 +5,8 @@
  *
  * @author		Can Berkol
  *              Murat Ünal
- * @version     1.0.4
- * @date        04.03.2014
+ * @version     1.0.5
+ * @date        30.04.2015
  *
  * @copyright   Biber Ltd. (http://www.biberltd.com)
  * @license     GPL v3.0
@@ -23,12 +23,12 @@ use BiberLtd\Bundle\CoreBundle\CoreEntity;
  *     name="language",
  *     options={"charset":"utf8","collate":"utf8_turkish_ci","engine":"innodb"},
  *     indexes={
- *         @ORM\Index(name="idx_u_language_iso_code", columns={"iso_code","site"}),
- *         @ORM\Index(name="idx_n_language_schema", columns={"`schema`"})
+ *         @ORM\Index(name="idxULanguageIsoCode", columns={"iso_code","site"}),
+ *         @ORM\Index(name="idxULanguageSchema", columns={"`schema`"})
  *     },
  *     uniqueConstraints={
- *         @ORM\UniqueConstraint(name="idx_u_language_id", columns={"id"}),
- *         @ORM\UniqueConstraint(name="idx_u_language_url_key", columns={"url_key","site"})
+ *         @ORM\UniqueConstraint(name="idxULanguageId", columns={"id"}),
+ *         @ORM\UniqueConstraint(name="idxULanguageUrlKey", columns={"url_key","site"})
  *     }
  * )
  */
@@ -90,10 +90,8 @@ class Language extends CoreEntity
     }
 
     /**
-     * @name                  set İsoCode()
-     *                            Sets the iso_code property.
-     *                            Updates the data only if stored value and value to be set are different.
-     *
+     * @name            setIsoCode(
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -114,9 +112,8 @@ class Language extends CoreEntity
     }
 
     /**
-     * @name            get İsoCode()
-     *                      Returns the value of iso_code property.
-     *
+     * @name            getIsoCode()
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -130,9 +127,7 @@ class Language extends CoreEntity
 
     /**
      * @name            setName()
-     *                  Sets the name property.
-     *                  Updates the data only if stored value and value to be set are different.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -154,8 +149,7 @@ class Language extends CoreEntity
 
     /**
      * @name            getName()
-     *                  Returns the value of name property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -169,9 +163,7 @@ class Language extends CoreEntity
 
     /**
      * @name            setSchema ()
-     *                  Sets the schema property.
-     *                  Updates the data only if stored value and value to be set are different.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -193,8 +185,7 @@ class Language extends CoreEntity
 
     /**
      * @name            getSchema ()
-     *                            Returns the value of schema property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -207,10 +198,8 @@ class Language extends CoreEntity
     }
 
     /**
-     * @name                  setSite ()
-     *                                Sets the site property.
-     *                                Updates the data only if stored value and value to be set are different.
-     *
+     * @name            setSite ()
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -232,8 +221,7 @@ class Language extends CoreEntity
 
     /**
      * @name            getSite ()
-     *                          Returns the value of site property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -246,10 +234,8 @@ class Language extends CoreEntity
     }
 
     /**
-     * @name                  setUrlKey ()
-     *                                  Sets the url_key property.
-     *                                  Updates the data only if stored value and value to be set are different.
-     *
+     * @name            setUrlKey ()
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -271,8 +257,7 @@ class Language extends CoreEntity
 
     /**
      * @name            getUrlKey ()
-     *                            Returns the value of url_key property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -286,9 +271,7 @@ class Language extends CoreEntity
 
     /**
      * @name            setStatus ()
-     *                  Sets the status property.
-     *                  Updates the data only if stored value and value to be set are different.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.4
@@ -310,8 +293,7 @@ class Language extends CoreEntity
 
     /**
      * @name            getStatus ()
-     *                  Returns the value of status property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.4
@@ -326,6 +308,13 @@ class Language extends CoreEntity
 }
 /**
  * Change Log:
+ * **************************************
+ * v1.0.5                      30.04.2015
+ * TW #
+ * Can Berkol
+ * **************************************
+ * ORM Changes.
+ *
  * **************************************
  * v1.0.4                      Can Berkol
  * 04.03.2014

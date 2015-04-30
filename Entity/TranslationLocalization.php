@@ -1,17 +1,27 @@
 <?php
+/**
+ * @name        TranslationLocalization
+ * @package		BiberLtd\Bundle\CoreBundle\MultiLanguageSupportBundle
+ *
+ * @author		Can Berkol
+ * @version     1.0.1
+ * @date        30.04.2015
+ *
+ * @copyright   Biber Ltd. (http://www.biberltd.com)
+ * @license     GPL v3.0
+ *
+ * @description Model / Entity class.
+ *
+ */
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
-/** 
+/**
  * @ORM\Entity
  * @ORM\Table(
  *     name="translation_localization",
  *     options={"charset":"utf8","collate":"utf8_turkish_ci","engine":"innodb"},
- *     indexes={
- *         @ORM\Index(name="idx_n_translation_localization_date_added", columns={"date_added"}),
- *         @ORM\Index(name="idx_n_translation_localization_date_updated", columns={"date_updated"})
- *     },
- *     uniqueConstraints={@ORM\UniqueConstraint(name="idx_u_translation_localization", columns={"translation","language"})}
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="idxUTranslationLocalization", columns={"translation","language"})}
  * )
  */
 class TranslationLocalization
@@ -22,37 +32,25 @@ class TranslationLocalization
     private $phrase;
 
     /** 
-     * @ORM\Column(type="datetime", nullable=false)
-     */
-    public $date_added;
-
-    /** 
-     * @ORM\Column(type="datetime", nullable=false)
-     */
-    public $date_updated;
-
-    /** 
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language")
      * @ORM\JoinColumn(name="language", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $language;
 
-    /** 
-     * @ORM\Id
-     * @ORM\ManyToOne(
-     *     targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation",
-     *     inversedBy="localizations"
-     * )
-     * @ORM\JoinColumn(name="translation", referencedColumnName="id", onDelete="CASCADE")
-     */
+	/**
+	 * @ORM\Id
+	 * @ORM\ManyToOne(
+	 *     targetEntity="BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity\Translation",
+	 *     inversedBy="localizations"
+	 * )
+	 * @ORM\JoinColumn(name="translation", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+	 */
     private $translation;
 
     /**
-     * @name                  setLanguage ()
-     *                                    Sets the language property.
-     *                                    Updates the data only if stored value and value to be set are different.
-     *
+     * @name            setLanguage ()
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -74,8 +72,7 @@ class TranslationLocalization
 
     /**
      * @name            getLanguage ()
-     *                              Returns the value of language property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -88,10 +85,8 @@ class TranslationLocalization
     }
 
     /**
-     * @name                  setPhrase ()
-     *                                  Sets the phrase property.
-     *                                  Updates the data only if stored value and value to be set are different.
-     *
+     * @name            setPhrase ()
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -113,8 +108,7 @@ class TranslationLocalization
 
     /**
      * @name            getPhrase ()
-     *                            Returns the value of phrase property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -127,10 +121,8 @@ class TranslationLocalization
     }
 
     /**
-     * @name                  setTranslation ()
-     *                                       Sets the translation property.
-     *                                       Updates the data only if stored value and value to be set are different.
-     *
+     * @name            setTranslation ()
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -152,8 +144,7 @@ class TranslationLocalization
 
     /**
      * @name            getTranslation ()
-     *                                 Returns the value of translation property.
-     *
+	 *
      * @author          Can Berkol
      *
      * @since           1.0.0
@@ -164,6 +155,13 @@ class TranslationLocalization
     public function getTranslation() {
         return $this->translation;
     }
-
-
 }
+/**
+ * Change Log
+ * **************************************
+ * v1.0.1                      30.04.2015
+ * TW #
+ * Can Berkol
+ * **************************************
+ * ORM Changes.
+ */
