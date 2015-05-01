@@ -106,9 +106,12 @@ class MultiLanguageSupportModel extends CoreModel {
                 $countDeleted++;
             }
             else{
-                $entry = $this->getLanguage($entry);
-                $this->em->remove($entry);
-                $countDeleted++;
+                $response = $this->getLanguage($entry);
+				if(!$response->error->exists){
+					$entry = $response->result->set;
+					$this->em->remove($entry);
+					$countDeleted++;
+				}
             }
         }
         if($countDeleted < 0){
@@ -142,6 +145,7 @@ class MultiLanguageSupportModel extends CoreModel {
 			if($bypass){
 				return $exist;
 			}
+			$response->result->set = false;
 			return $response;
 		}
 
@@ -159,7 +163,6 @@ class MultiLanguageSupportModel extends CoreModel {
 	 * @version         1.0.9
 	 * @author          Can Berkol
 	 *
-	 * @use             $this->listLanguages()
 	 * @use             $this->createException()
 	 *
 	 * @param           mixed           $language           string, integer or entity.
@@ -184,7 +187,7 @@ class MultiLanguageSupportModel extends CoreModel {
 				break;
 		}
 		if(is_null($result)){
-			$this->createException('EntityDoesNotExist', 'Unable to find request entry in database. => '.json_encode($result), 'E:D:002');
+			return new ModelResponse($result, 1, 0, null, true, 'E:D:002', 'Unable to find request entry in database.', $timeStamp, time());
 		}
 
 		return new ModelResponse($result, 1, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
