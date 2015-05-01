@@ -28,11 +28,11 @@
         <index-field name="url_key"/>
         <index-field name="site"/>
       </index>
-      <index name="idxULanguageIsoCode">
+      <index name="idxULanguageIsoCode" unique="true">
         <index-field name="iso_code"/>
         <index-field name="site"/>
       </index>
-      <index name="idxULanguageSchema">
+      <index name="idxNLanguageSchema">
         <index-field name="schema"/>
       </index>
       <orm-attributes>
@@ -55,7 +55,6 @@
       <field name="id" description="System given id." type="integer" size="20" required="true" unique="true" primary="true" auto-increment="true" uuid="8ff3c01b-d52b-4b5c-be10-8f79409147f3"/>
       <field name="domain" description="Translation domain - required for symfony2." type="string" size="255" uuid="d05419a4-c74a-4cbc-840e-015abf8c4718"/>
       <field name="key" description="Translation key." type="string" size="255" required="true" uuid="c621ebd3-f562-443d-a94a-3a114b72500c"/>
-      <field name="instructions" description="Translation instructions if exists." type="string" size="255" uuid="46926301-af57-4508-af38-25e2ce983097"/>
       <field name="date_added" description="Date when the translation is added." type="datetime" required="true" uuid="7429e347-02fd-41ab-ad4e-e22e98de713c"/>
       <field name="date_updated" description="Date when the translation is updated." type="datetime" required="true" uuid="879c9cc9-5930-4b1d-979b-401539dfef7a"/>
       <field name="date_removed" description="Date when the entry is marked as removed." type="datetime" uuid="714f6168-d980-4b98-a23e-e978f733ecf4"/>

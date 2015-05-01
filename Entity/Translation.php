@@ -5,8 +5,8 @@ namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Entity;
  * @package		BiberLtd\Bundle\CoreBundle\MultiLanguageSupportBundle
  *
  * @author		Can Berkol
- * @version     1.0.1
- * @date        30.04.2015
+ * @version     1.0.2
+ * @date        01.05.2015
  *
  * @copyright   Biber Ltd. (http://www.biberltd.com)
  * @license     GPL v3.0
@@ -51,11 +51,6 @@ class Translation extends CoreLocalizableEntity
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $key;
-
-    /** 
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $instructions;
 
     /** 
      * @ORM\Column(type="datetime", nullable=false)
@@ -177,41 +172,6 @@ class Translation extends CoreLocalizableEntity
     }
 
     /**
-     * @name            setInstructions()
-	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @use             $this->setModified()
-     *
-     * @param           mixed $instructions
-     *
-     * @return          object                $this
-     */
-    public function setInstructions($instructions) {
-        if(!$this->setModified('instructions', $instructions)->isModified()) {
-            return $this;
-        }
-		$this->instructions = $instructions;
-		return $this;
-    }
-
-    /**
-     * @name            getInstructions()
-	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          mixed           $this->instructions
-     */
-    public function getInstructions() {
-        return $this->instructions;
-    }
-    /**
      * @name            setDomain()
 	 *
      * @author          Can Berkol
@@ -249,6 +209,12 @@ class Translation extends CoreLocalizableEntity
 }
 /**
  * Change Log:
+ * **************************************
+ * v1.0.2                      30.04.2015
+ * Can Berkol
+ * **************************************
+ * CR :: instructions property & getter & setter methods removed.
+ *
  * **************************************
  * v1.0.1                      30.04.2015
  * TW #

@@ -22,13 +22,11 @@ use BiberLtd\Bundle\CoreBundle\CoreEntity;
  * @ORM\Table(
  *     name="language",
  *     options={"charset":"utf8","collate":"utf8_turkish_ci","engine":"innodb"},
- *     indexes={
- *         @ORM\Index(name="idxULanguageIsoCode", columns={"iso_code","site"}),
- *         @ORM\Index(name="idxULanguageSchema", columns={"`schema`"})
- *     },
+ *     indexes={@ORM\Index(name="idxNLanguageSchema", columns={"`schema`"})},
  *     uniqueConstraints={
  *         @ORM\UniqueConstraint(name="idxULanguageId", columns={"id"}),
- *         @ORM\UniqueConstraint(name="idxULanguageUrlKey", columns={"url_key","site"})
+ *         @ORM\UniqueConstraint(name="idxULanguageUrlKey", columns={"url_key","site"}),
+ *         @ORM\UniqueConstraint(name="idxULanguageIsoCode", columns={"iso_code","site"})
  *     }
  * )
  */

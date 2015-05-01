@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2015-04-30 20:24:29
+Date: 2015-05-01 11:50:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,8 +31,8 @@ CREATE TABLE `language` (
   UNIQUE KEY `idxULanguageId` (`id`) USING BTREE,
   UNIQUE KEY `idxULanguageUrlKey` (`url_key`,`site`) USING BTREE,
   UNIQUE KEY `idxULanguageIsoCode` (`iso_code`,`site`) USING BTREE,
-  KEY `idxULanguageSchema` (`schema`,`site`) USING BTREE,
   KEY `idxFSiteOfLanguage` (`site`) USING BTREE,
+  KEY `idxNLanguageSchema` (`schema`,`site`) USING BTREE,
   CONSTRAINT `idxFSiteOfLanguage` FOREIGN KEY (`site`) REFERENCES `site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci ROW_FORMAT=COMPACT;
 
@@ -44,7 +44,6 @@ CREATE TABLE `translation` (
   `id` int(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'System given id.',
   `domain` varchar(255) COLLATE utf8_turkish_ci DEFAULT NULL COMMENT 'Domain / file name of translation.',
   `key` varchar(255) COLLATE utf8_turkish_ci NOT NULL COMMENT 'Translation key.',
-  `instructions` varchar(255) COLLATE utf8_turkish_ci DEFAULT NULL COMMENT 'Translation instructions if exists.',
   `date_added` datetime NOT NULL COMMENT 'Date when the translation is added.',
   `date_updated` datetime NOT NULL COMMENT 'Date when the translation is last updated.',
   `date_removed` datetime DEFAULT NULL COMMENT 'Date when the entry is marked as removed.',
