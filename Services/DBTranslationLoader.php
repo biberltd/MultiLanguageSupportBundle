@@ -1,21 +1,16 @@
 <?php
-
 /**
- * DBTranslationLoader Class
- *
- * This class is used to provide means of loading translations from database instead o ftext files.
- *
  * @vendor      BiberLtd
- * @package		Core\Bundles\MultiLanguageSupportBundle
+ * @package		BiberLtd\Bundle\MultiLanguageSupportBundle
  * @subpackage	Services
- * @name	    MultiLanguageSupportModel
+ * @name	    DBTranslationLoader
  *
  * @author		Can Berkol
  *
  * @copyright   Biber Ltd. (www.biberltd.com)
  *
- * @version     1.0.1
- * @date        28.04.2014
+ * @version     1.0.2
+ * @date        01.05.2015
  *
  */
 
@@ -92,22 +87,22 @@ class DBTranslationLoader implements LoaderInterface{
         $mlsModel = $this->kernel->getContainer()->get('multilanguagesupport.model');
         $siteModel = $this->kernel->getContainer()->get('sitemanagement.model');
         $response = $mlsModel->getLanguage($locale, 'iso_code');
-        if($response['error']){
+        if($response->error->exists){
             $response = $siteModel->getSite($siteId, 'id');
-            if($response['error']){
+            if($response->error->exists){
                return false;
             }
-            $site =  $response['result']['set'];
-            $response['result']['set'] = $site->getLanguage();
+            $site =  $response->result->set;
+			$response->result->set= $site->getLanguage();
         }
-        $language = $response['result']['set'];
+        $language = $response->result->set;
         /** Grab all translations of domain */
         $response = $mlsModel->listTranslationsOfDomain($domain, array('key' => 'asc'));
-        if($response['error']){
+        if($response->error->exists){
             $translations = array();
         }
         else{
-            $translations = $response['result']['set'];
+            $translations = $response->result->set;
         }
         /** Build catalogue */
         $catalogue = new MessageCatalogue($locale);
@@ -162,6 +157,12 @@ class DBTranslationLoader implements LoaderInterface{
 
 /**
  * Change Log
+ * **************************************
+ * v1.0.2                      01.05.2015
+ * Can Berkol
+ * **************************************
+ * CR :: The class now uses ModelResponse.
+ *
  * **************************************
  * v1.0.1                      Can Berkol
  * 28.04.2014
