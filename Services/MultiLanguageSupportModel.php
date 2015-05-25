@@ -9,9 +9,9 @@
  *
  * @copyright   Biber Ltd. (www.biberltd.com)
  *
- * @version     1.0.9
+ * @version     1.1.0
  *
- * @date        01.05.2015
+ * @date        25.05.2015
  */
 
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Services;
@@ -437,7 +437,7 @@ class MultiLanguageSupportModel extends CoreModel {
      * @name            listTranslationsOfDomain()
 	 *
      * @since           1.0.8
-     * @version         1.0.9
+     * @version         1.1.0
      * @author          Can Berkol
      *
      * @use             $this->listTranslations()
@@ -449,7 +449,6 @@ class MultiLanguageSupportModel extends CoreModel {
      * @return          array           $response
      */
     public function listTranslationsOfDomain($domain, $sortorder = null, $limit = null){
-        $this->resetResponse();
         $condition = array('column' => $this->entity['t']['alias'].'.domain', 'comparison' => '=', 'value' => $domain);
         $filter[] = array(
             'glue' => 'and',
@@ -554,6 +553,12 @@ class MultiLanguageSupportModel extends CoreModel {
 
 /**
  * Change Log
+ * **************************************
+ * v1.1.0                      25.05.2015
+ * Can Berkol
+ * **************************************
+ * 	BF :: Deprecated call $this->resetResponse() removed.
+ *
  * **************************************
  * v1.0.9                      01.05.2015
  * Can Berkol

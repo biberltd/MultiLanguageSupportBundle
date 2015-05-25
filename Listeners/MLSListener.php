@@ -7,8 +7,8 @@
  *
  * @author		Can Berkol
  *
- * @version     1.0.1
- * @date        28.04.2015
+ * @version     1.0.2
+ * @date        25.05.2015
  *
  */
 
@@ -29,7 +29,7 @@ class MLSListener extends Core{
      * @author          Can Berkol
      *
      * @since           1.0.0
-     * @version         1.0.0
+     * @version         1.0.2
      *
      * @param           string      $container
      * @param           array       $kernel
@@ -60,9 +60,9 @@ class MLSListener extends Core{
             )
         );
         $response = $MLSModel->listAllLanguages(array("iso_code" => "asc"));
-        if(!$response['error']){
+        if(!$response->error->exist){
             $language_codes = array();
-            foreach($response['result']['set'] as $language){
+            foreach($response->result->set as $language){
                 $language_codes[] = $language->getIsoCode();
             }
             $this->languages = $language_codes;
@@ -159,6 +159,12 @@ class MLSListener extends Core{
 }
 /**
  * Change Log
+ * ****************************************
+ * v1.0.2						25.05.2015
+ * Can Berkol
+ * ****************************************
+ * BF :: Deprecated use of array style response is removed.
+ *
  * ****************************************
  * v1.0.1						28.04.2015
  * TW #
