@@ -9,8 +9,8 @@
  *
  * @copyright   Biber Ltd. (www.biberltd.com)
  *
- * @version     1.0.2
- * @date        01.05.2015
+ * @version     1.0.3
+ * @date        26.05.2015
  *
  */
 
@@ -73,7 +73,7 @@ class DBTranslationLoader implements LoaderInterface{
      *  				Translation loader load() implementation
      *
      * @since			1.0.0
-     * @version         1.0.0
+     * @version         1.0.3
      * @author          Can Berkol
      *
      * @param           mixed           $resource
@@ -87,9 +87,9 @@ class DBTranslationLoader implements LoaderInterface{
         $mlsModel = $this->kernel->getContainer()->get('multilanguagesupport.model');
         $siteModel = $this->kernel->getContainer()->get('sitemanagement.model');
         $response = $mlsModel->getLanguage($locale, 'iso_code');
-        if($response->error->exists){
+        if($response->error->exist){
             $response = $siteModel->getSite($siteId, 'id');
-            if($response->error->exists){
+            if($response->error->exist){
                return false;
             }
             $site =  $response->result->set;
@@ -98,7 +98,7 @@ class DBTranslationLoader implements LoaderInterface{
         $language = $response->result->set;
         /** Grab all translations of domain */
         $response = $mlsModel->listTranslationsOfDomain($domain, array('key' => 'asc'));
-        if($response->error->exists){
+        if($response->error->exist){
             $translations = array();
         }
         else{
@@ -157,6 +157,12 @@ class DBTranslationLoader implements LoaderInterface{
 
 /**
  * Change Log
+ * **************************************
+ * v1.0.3                      26.05.2015
+ * Can Berkol
+ * **************************************
+ * BF :: $response->error->exists fixed to response->error->exist
+ *
  * **************************************
  * v1.0.2                      01.05.2015
  * Can Berkol
