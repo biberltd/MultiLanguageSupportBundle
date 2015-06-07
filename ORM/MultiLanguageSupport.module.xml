@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<skipper version="3.1.2.1193" mvc="Symfony2" orm="Doctrine2">
-  <module name="MultiLanguageSupportBundle" import-format="Doctrine2Php" import-path="../Entity" uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed">
-    <entity name="Language" description="Stores language definitions to be used in the site." uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514">
+<skipper version="3.2.1.1226" mvc="Symfony2" orm="Doctrine2">
+  <module name="\MultiLanguageSupportBundle" local-name="MultiLanguageSupportBundle" namespace="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" local-namespace="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" export-format="Doctrine2Php" export-path="../Entity" uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed">
+    <entity name="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language" local-name="Language" namespace="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" description="Stores language definitions to be used in the site." uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514">
       <field name="id" description="System given id." type="integer" size="5" required="true" unique="true" primary="true" auto-increment="true" uuid="93714214-3a52-4799-9c0a-f74e937d83f0"/>
       <field name="name" description="Name of language." type="string" size="155" required="true" uuid="4c3297e2-df9f-4d4a-9047-6c650341b243">
         <orm-attributes>
@@ -45,13 +45,13 @@
         <attribute name="export-file-name">Language.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="Language" to="Site" caption="idxFSiteOfLanguage" inverse-alias="site" many-owner="true" many-inverse="false" uuid="dcbf1caf-6474-4dfe-90be-7b58aa71c5c7">
+    <association from="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language" to="\BiberLtd\Bundle\SiteManagementBundle\Entity\Site" caption="idxFSiteOfLanguage" inverse-alias="site" many-owner="true" many-inverse="false" uuid="dcbf1caf-6474-4dfe-90be-7b58aa71c5c7">
       <association-field from="site" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
-    <entity name="Translation" description="Holds site translations for each language." uuid="41bcf7a2-e5e3-42a8-af5a-39de1f0e86ff">
+    <entity name="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation" local-name="Translation" namespace="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" description="Holds site translations for each language." uuid="41bcf7a2-e5e3-42a8-af5a-39de1f0e86ff">
       <field name="id" description="System given id." type="integer" size="20" required="true" unique="true" primary="true" auto-increment="true" uuid="8ff3c01b-d52b-4b5c-be10-8f79409147f3"/>
       <field name="domain" description="Translation domain - required for symfony2." type="string" size="255" uuid="d05419a4-c74a-4cbc-840e-015abf8c4718"/>
       <field name="key" description="Translation key." type="string" size="255" required="true" uuid="c621ebd3-f562-443d-a94a-3a114b72500c"/>
@@ -85,13 +85,13 @@
         <attribute name="export-file-name">Translation.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="Translation" to="Site" caption="idxFSiteOfTranslation" inverse-alias="site" many-owner="true" many-inverse="false" uuid="691cd89a-3534-4a4c-bf70-544fa15a4c35">
+    <association from="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation" to="\BiberLtd\Bundle\SiteManagementBundle\Entity\Site" caption="idxFSiteOfTranslation" inverse-alias="site" many-owner="true" many-inverse="false" uuid="691cd89a-3534-4a4c-bf70-544fa15a4c35">
       <association-field from="site" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
-    <entity name="TranslationLocalization" description="Holds localized translation values." uuid="2d0a30b3-246d-47fa-b198-331e87d4a439">
+    <entity name="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization" local-name="TranslationLocalization" namespace="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" description="Holds localized translation values." uuid="2d0a30b3-246d-47fa-b198-331e87d4a439">
       <field name="translation" description="Localized translation." type="integer" size="20" required="true" primary="true" uuid="11e947c3-cd20-40aa-b05f-aaf56764ee96"/>
       <field name="language" description="Localizati&#x131;n language." type="integer" size="5" required="true" primary="true" uuid="9cf7a832-5166-4d19-b011-b8efeabefbd9"/>
       <field name="phrase" description="Localized value." type="text" required="true" uuid="e27b9354-801e-4560-8d89-5c25d3155026"/>
@@ -109,13 +109,13 @@
         <attribute name="export-file-name">TranslationLocalization.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="TranslationLocalization" to="Language" caption="idxFTranslationLocalizationLanguage" inverse-alias="language" many-owner="true" many-inverse="false" parent-required="true" uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7">
+    <association from="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization" to="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language" caption="idxFTranslationLocalizationLanguage" inverse-alias="language" many-owner="true" many-inverse="false" parent-required="true" uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7">
       <association-field from="language" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
-    <association from="TranslationLocalization" to="Translation" caption="idxFLocalizedTranslation" owner-alias="localizations" inverse-alias="translation" many-owner="true" many-inverse="false" parent-required="true" uuid="71f15a54-6bc9-4510-84b1-2b2817781440">
+    <association from="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization" to="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation" caption="idxFLocalizedTranslation" owner-alias="localizations" inverse-alias="translation" many-owner="true" many-inverse="false" parent-required="true" uuid="71f15a54-6bc9-4510-84b1-2b2817781440">
       <association-field from="translation" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
@@ -124,13 +124,13 @@
     <orm-attributes>
       <attribute name="filename-format">entity-name-only</attribute>
       <attribute name="file-suffix">without-suffix</attribute>
-      <attribute name="namespace">BiberLtd\Core\Bundles\MultiLanguageSupportBundle\Entity</attribute>
+      <attribute name="namespace">BiberLtd\Bundle\MultiLanguageSupportBundle\Entity</attribute>
     </orm-attributes>
   </module>
   <visual-data>
-    <module uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed" bg-color="4291231744" size-x="0" size-x2="801" size-y="56" size-y2="394"/>
-    <entity uuid="2d0a30b3-246d-47fa-b198-331e87d4a439" bg-color="4294967295" hdr-color="4292006610" position-x="500" position-y="194" size-x="0" size-x2="126" size-y="0" size-y2="87"/>
-    <entity uuid="41bcf7a2-e5e3-42a8-af5a-39de1f0e86ff" bg-color="4294967295" hdr-color="4292006610" position-x="514" position-y="-42" size-x="0" size-x2="126" size-y="0" size-y2="101"/>
-    <entity uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514" bg-color="4294967295" hdr-color="4292006610" position-x="291" position-y="53" size-x="0" size-x2="109" size-y="0" size-y2="101"/>
+    <module uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed" bg-color="#FDF5F3" size-x="0" size-x2="700" size-y="56" size-y2="417"/>
+    <entity uuid="2d0a30b3-246d-47fa-b198-331e87d4a439" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="200" position-y="294" size-x="0" size-x2="121" size-y="0" size-y2="59"/>
+    <entity uuid="41bcf7a2-e5e3-42a8-af5a-39de1f0e86ff" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="400" position-y="44" size-x="0" size-x2="130" size-y="0" size-y2="115"/>
+    <entity uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="100" position-y="94" size-x="0" size-x2="109" size-y="0" size-y2="115"/>
   </visual-data>
 </skipper>

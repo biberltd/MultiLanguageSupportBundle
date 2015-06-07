@@ -55,12 +55,12 @@ class Language extends CoreEntity
     private $iso_code;
 
     /**
-     * @ORM\Column(type="string", length=3, nullable=false, name="`schema`")
+     * @ORM\Column(type="string", length=3, nullable=false, name="`schema`", options={"default":"ltr"})
      */
     private $schema;
 
     /** 
-     * @ORM\Column(type="string", length=1, nullable=false, name="`status`")
+     * @ORM\Column(type="string", length=1, nullable=false, name="`status`", options={"default":"a"})
      */
     private $status;
 
