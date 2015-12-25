@@ -1,18 +1,12 @@
 <?php
 /**
- * @name        Language
- * @package		BiberLtd\Bundle\CoreBundle\MultiLanguageSupportBundle
- *
  * @author		Can Berkol
- *              Murat Ünal
- * @version     1.0.5
- * @date        30.04.2015
+ * @author		Said İmamoğlu
  *
- * @copyright   Biber Ltd. (http://www.biberltd.com)
- * @license     GPL v3.0
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @description Model / Entity class.
- *
+ * @date        23.12.2015
  */
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
@@ -36,72 +30,60 @@ class Language extends CoreEntity
      * @ORM\Id
      * @ORM\Column(type="integer", length=5)
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=155, nullable=false, name="`name`")
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @var string
      */
     private $url_key;
 
     /**
      * @ORM\Column(type="string", length=7, nullable=true)
+     * @var string
      */
     private $iso_code;
 
     /**
      * @ORM\Column(type="string", length=3, nullable=false, name="`schema`", options={"default":"ltr"})
+     * @var string
      */
     private $schema;
 
     /** 
      * @ORM\Column(type="string", length=1, nullable=false, name="`status`", options={"default":"a"})
+     * @var string
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\SiteManagementBundle\Entity\Site")
      * @ORM\JoinColumn(name="site", referencedColumnName="id", onDelete="CASCADE")
+     * @var \BiberLtd\Bundle\SiteManagementBundle\Entity\Site
      */
     private $site;
-    /******************************************************************
-     * PUBLIC SET AND GET FUNCTIONS                                   *
-     ******************************************************************/
 
-    /**
-     * @name            getId()
-     *  				Gets $id property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          integer          $this->id
-     */
+	/**
+	 * @return mixed
+	 */
     public function getId(){
         return $this->id;
     }
 
-    /**
-     * @name            setIsoCode(
+	/**
+	 * @param string $iso_code
 	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @use             $this->setModified()
-     *
-     * @param           mixed $iso_code
-     *
-     * @return          object                $this
-     */
-    public function setIsoCode($iso_code) {
+	 * @return $this
+	 */
+    public function setIsoCode(\string $iso_code) {
         if(!$this->setModified('iso_code', $iso_code)->isModified()) {
             return $this;
         }
@@ -109,35 +91,19 @@ class Language extends CoreEntity
 		return $this;
     }
 
-    /**
-     * @name            getIsoCode()
-	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          mixed           $this->iso_code
-     */
+	/**
+	 * @return string
+	 */
     public function getIsoCode() {
         return $this->iso_code;
     }
 
-    /**
-     * @name            setName()
+	/**
+	 * @param string $name
 	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @use             $this->setModified()
-     *
-     * @param           mixed $name
-     *
-     * @return          object                $this
-     */
-    public function setName($name) {
+	 * @return $this
+	 */
+    public function setName(\string $name) {
         if(!$this->setModified('name', $name)->isModified()) {
             return $this;
         }
@@ -145,35 +111,19 @@ class Language extends CoreEntity
 		return $this;
     }
 
-    /**
-     * @name            getName()
-	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          mixed           $this->name
-     */
+	/**
+	 * @return string
+	 */
     public function getName() {
         return $this->name;
     }
 
-    /**
-     * @name            setSchema ()
+	/**
+	 * @param string $schema
 	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @use             $this->setModified()
-     *
-     * @param           mixed $schema
-     *
-     * @return          object                $this
-     */
-    public function setSchema($schema) {
+	 * @return $this
+	 */
+    public function setSchema(\string $schema) {
         if(!$this->setModified('schema', $schema)->isModified()) {
             return $this;
         }
@@ -181,35 +131,19 @@ class Language extends CoreEntity
 		return $this;
     }
 
-    /**
-     * @name            getSchema ()
-	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          mixed           $this->schema
-     */
+	/**
+	 * @return string
+	 */
     public function getSchema() {
         return $this->schema;
     }
 
-    /**
-     * @name            setSite ()
+	/**
+	 * @param \BiberLtd\Bundle\SiteManagementBundle\Entity\Site $site
 	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @use             $this->setModified()
-     *
-     * @param           mixed $site
-     *
-     * @return          object                $this
-     */
-    public function setSite($site) {
+	 * @return $this
+	 */
+    public function setSite(\BiberLtd\Bundle\SiteManagementBundle\Entity\Site $site) {
         if(!$this->setModified('site', $site)->isModified()) {
             return $this;
         }
@@ -217,35 +151,19 @@ class Language extends CoreEntity
 		return $this;
     }
 
-    /**
-     * @name            getSite ()
-	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          mixed           $this->site
-     */
+	/**
+	 * @return \BiberLtd\Bundle\SiteManagementBundle\Entity\Site
+	 */
     public function getSite() {
         return $this->site;
     }
 
-    /**
-     * @name            setUrlKey ()
+	/**
+	 * @param string $url_key
 	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @use             $this->setModified()
-     *
-     * @param           mixed $url_key
-     *
-     * @return          object                $this
-     */
-    public function setUrlKey($url_key) {
+	 * @return $this
+	 */
+    public function setUrlKey(\string $url_key) {
         if(!$this->setModified('url_key', $url_key)->isModified()) {
             return $this;
         }
@@ -253,35 +171,19 @@ class Language extends CoreEntity
 		return $this;
     }
 
-    /**
-     * @name            getUrlKey ()
-	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          mixed           $this->url_key
-     */
+	/**
+	 * @return string
+	 */
     public function getUrlKey() {
         return $this->url_key;
     }
 
-    /**
-     * @name            setStatus ()
+	/**
+	 * @param string $status
 	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.4
-     * @version         1.0.4
-     *
-     * @use             $this->setModified()
-     *
-     * @param           mixed $status
-     *
-     * @return          object                $this
-     */
-    public function setStatus($status) {
+	 * @return $this
+	 */
+    public function setStatus(\string $status) {
         if($this->setModified('status', $status)->isModified()) {
             $this->status = $status;
         }
@@ -289,67 +191,11 @@ class Language extends CoreEntity
         return $this;
     }
 
-    /**
-     * @name            getStatus ()
-	 *
-     * @author          Can Berkol
-     *
-     * @since           1.0.4
-     * @version         1.0.4
-     *
-     * @return          mixed           $this->status
-     */
+	/**
+	 * @return string
+	 */
     public function getStatus() {
         return $this->status;
     }
 
 }
-/**
- * Change Log:
- * **************************************
- * v1.0.5                      30.04.2015
- * TW #
- * Can Berkol
- * **************************************
- * ORM Changes.
- *
- * **************************************
- * v1.0.4                      Can Berkol
- * 04.03.2014
- * **************************************
- * A getStatus()
- * A setStatus()
- *
- * **************************************
- * v1.0.3                      Can Berkol
- * 29.01.2014
- * **************************************
- * M Now extends CoreEntity
- *
- * **************************************
- * v1.0.2                      Can Berkol
- * 04.08.2013
- * **************************************
- * M Non-core functionalities have been commented out.
- *
- * **************************************
- * v1.0.2                     Murat Ünal
- * 10.10.2013
- * **************************************
- * A getFilesOfPage()
- * A getId()
- * A getIsoCode()
- * A getName()
- * A getSchema()
- * A getSite()
- * A getUrlKey()
- *
- * A setFilesOfPage()
- * A setIsoCode()
- * A setName()
- * A setSchema()
- * A setSite()
- * A setUrlKey()
- *
- *
- */

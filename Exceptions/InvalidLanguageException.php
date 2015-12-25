@@ -1,23 +1,26 @@
 <?php
 /**
- * @name        InvalidLanguageException
- * @package		BiberLtd\Bundle\MultiLanguageSupportBundle
- *
  * @author		Can Berkol
- * @version     1.0.1
- * @date        26.06.2014
+ * @author		Said İmamoğlu
  *
- * @copyright   Biber Ltd. (http://www.biberltd.com)
- * @license     GPL v3.0
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @description Exception to handle cURL connection problems.
- *
+ * @date        23.12.2015
  */
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Exceptions;
 
 use BiberLtd\Bundle\ExceptionBundle\Services;
 
 class InvalidLanguageException extends Services\ExceptionAdapter {
+    /**
+     * InvalidLanguageException constructor.
+     *
+     * @param string                                                                $kernel
+     * @param string                                                                $msg
+     * @param string                                                                $code
+     * @param \BiberLtd\Bundle\MultiLanguageSupportBundle\Exceptions\Exception|null $previous
+     */
     public function __construct($kernel, $msg = "", $code = 'MLS001', Exception $previous = null) {
         $numeriCode = ord($code[0]).ord($code[1]).ord($code[2]).substr($code, 3, 3);
         parent::__construct(
@@ -28,18 +31,3 @@ class InvalidLanguageException extends Services\ExceptionAdapter {
             $previous);
     }
 }
-/**
- * Change Log:
- * **************************************
- * v1.0.1                      Can Berkol
- * 26.06.2014
- * **************************************
- * U __construct()
- *
- * **************************************
- * v1.0.0                      Can Berkol
- * 01.08.2013
- * **************************************
- * A __construct()
- *
- */

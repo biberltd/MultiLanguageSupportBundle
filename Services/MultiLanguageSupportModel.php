@@ -1,17 +1,12 @@
 <?php
 /**
- * @vendor      BiberLtd
- * @package		BiberLtd\Bundle\MultiLanguageSupportBundle
- * @subpackage	Services
- * @name	    MultiLanguageSupportModel
- *
  * @author		Can Berkol
+ * @author		Said İmamoğlu
  *
- * @copyright   Biber Ltd. (www.biberltd.com)
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @version     1.1.0
- *
- * @date        25.05.2015
+ * @date        23.12.2015
  */
 
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Services;
@@ -50,51 +45,30 @@ class MultiLanguageSupportModel extends CoreModel {
         );
     }
 
-    /**
-     * @name            __destruct()
-     *                  Destructor.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     */
+	/**
+	 * Destructor
+	 */
     public function __destruct() {
         foreach ($this as $property => $value) {
             $this->$property = null;
         }
     }
+
 	/**
-	 * @name 			deleteLanguage()
+	 * @param mixed $language
 	 *
-	 * @since			1.0.0
-	 * @version         1.0.4
-	 * @author          Can Berkol
-	 *
-	 * @use             $this->deleteLanguages()
-	 *
-	 * @param           mixed           $language
-	 * @return          mixed           $response
+	 * @return array
 	 */
 	public function deleteLanguage($language) {
 		return $this->deleteLanguages(array($language));
 	}
 
-    /**
-     * @name 			deleteLanguages()
+	/**
+	 * @param array $collection
 	 *
-     * @since			1.0.0
-     * @version         1.0.9
-     * @author          Can Berkol
-     *
-     * @use             $this->createException()
-     *
-     * @param           array           $collection      Collection of Language entities, site ids, url_keys or iso_codes.
-     *
-     * @return          array           $response
-     */
-    public function deleteLanguages($collection) {
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
+	 */
+    public function deleteLanguages(array $collection) {
 		$timeStamp = time();
         if (!is_array($collection)) {
             return $this->createException('InvalidParameterValueException', 'Invalid parameter value. Parameter must be an array collection', 'E:S:001');
@@ -121,21 +95,14 @@ class MultiLanguageSupportModel extends CoreModel {
 
         return new ModelResponse(null, 0, 0, null, false, 'S:D:001', 'Selected entries have been successfully removed from database.', $timeStamp, time());
     }
+
 	/**
-	 * @name 			doesLanguageExist()
+	 * @param mixed $language
+	 * @param bool $bypass
 	 *
-	 * @since			1.0.0
-	 * @version         1.0.9
-	 * @author          Can Berkol
-	 *
-	 * @use             $this->getLanguage()
-	 *
-	 * @param           mixed           $language       Site entity or site id.
-	 * @param           bool            $bypass         If set to true does not return response but only the result.
-	 *
-	 * @return          mixed           $response
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|bool|mixed
 	 */
-	public function doesLanguageExist($language, $bypass = false) {
+	public function doesLanguageExist($language, \bool $bypass = false) {
 		$timeStamp = time();
 		$exist = false;
 
@@ -156,18 +123,11 @@ class MultiLanguageSupportModel extends CoreModel {
 		}
 		return new ModelResponse(true, 1, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
 	}
+
 	/**
-	 * @name 			getLanguage()
+	 * @param mixed $language
 	 *
-	 * @since			1.0.0
-	 * @version         1.0.9
-	 * @author          Can Berkol
-	 *
-	 * @use             $this->createException()
-	 *
-	 * @param           mixed           $language           string, integer or entity.
-	 *
-	 * @return          mixed           $response
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
 	public function getLanguage($language) {
 		$timeStamp = time();
@@ -194,36 +154,20 @@ class MultiLanguageSupportModel extends CoreModel {
 	}
 
 	/**
-	 * @name 			insertLanguage()
+	 * @param mixed $language
 	 *
-	 * @since			1.0.0
-	 * @version         1.0.7
-	 * @author          Can Berkol
-	 *
-	 * @use             $this->insertLanguages()
-	 *
-	 * @param           mixed           $data      Language Entity or a collection of post input that stores site details.
-	 *
-	 * @return          array           $response
+	 * @return array
 	 */
-	public function insertLanguage($data) {
-		return $this->insertLanguages(array($data));
+	public function insertLanguage($language) {
+		return $this->insertLanguages(array($language));
 	}
+
 	/**
-	 * @name 			insertLanguages()
-	 *  				Inserts one or more languages into database.
+	 * @param array $collection
 	 *
-	 * @since			1.0.0
-	 * @version         1.0.9
-	 * @author          Can Berkol
-	 *
-	 * @use             $this->createException()
-	 *
-	 * @param           array           $collection
-	 *
-	 * @return          array           $response
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
-	public function insertLanguages($collection) {
+	public function insertLanguages(array $collection) {
 		$timeStamp = time();
 		if (!is_array($collection)) {
 			return $this->createException('InvalidParameterValueException', 'Invalid parameter value. Parameter must be an array collection', 'E:S:001');
@@ -270,40 +214,24 @@ class MultiLanguageSupportModel extends CoreModel {
 		return new ModelResponse(null, 0, 0, null, true, 'E:D:003', 'One or more entities cannot be inserted into database.', $timeStamp, time());
 	}
 
-    /**
-     * @name 			listAllLanguages()
-     *
-     * @since			1.0.5
-     * @version         1.0.9
-     * @author          Can Berkol
-     *
-     * @use             $this->createException()
-     *
-     * @param           array           $sortOrder
-     * @param           array           $limit
-     *
-     * @return          array           $response
-     */
-    public function listAllLanguages($sortOrder = null, $limit = null) {
+	/**
+	 * @param array|null $sortOrder
+	 * @param array|null $limit
+	 *
+	 * @return array
+	 */
+    public function listAllLanguages(array $sortOrder = null, array $limit = null) {
         return $this->listLanguages(null, $sortOrder, $limit);
     }
 
-    /**
-     * @name 			listLanguages()
-     *
-     * @since			1.0.0
-     * @version         1.0.9
-     * @author          Can Berkol
-     *
-     * @use             $this->createException()
-     *
-     * @param           array           $filter
-     * @param           array           $sortOrder
-     * @param           array           $limit
-     *
-     * @return          array           $response
-     */
-    public function listLanguages($filter = null, $sortOrder = null, $limit = null) {
+	/**
+	 * @param array|null $filter
+	 * @param array|null $sortOrder
+	 * @param array|null $limit
+	 *
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
+	 */
+    public function listLanguages(array $filter = null, array $sortOrder = null, array $limit = null) {
 		$timeStamp = time();
         if (!is_array($sortOrder) && !is_null($sortOrder)) {
             return $this->createException('InvalidSortOrderException', '$sortOrder must be an array with key => value pairs where value can only be "asc" or "desc".', 'E:S:002');
@@ -350,22 +278,15 @@ class MultiLanguageSupportModel extends CoreModel {
         }
 		return new ModelResponse($result, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
     }
-    /**
-     * @name            listTranslations()
-     *
-     * @since           1.0.8
-     * @version         1.0.9
-     * @author          Can Berkol
-     *
-     * @use             $₺his->createException()
-     *
-     * @param           array       $filter         Multi-dimensional array
-     * @param           array       $sortOrder
-     * @param           array       $limit
-     *
-     * @return          array       $response
-     */
-    public function listTranslations($filter = null, $sortOrder = null, $limit = null){
+
+	/**
+	 * @param array|null $filter
+	 * @param array|null $sortOrder
+	 * @param array|null $limit
+	 *
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
+	 */
+    public function listTranslations(array $filter = null, array $sortOrder = null, array $limit = null){
 		$timeStamp = time();
         if (!is_array($sortOrder) && !is_null($sortOrder)) {
 			return $this->createException('InvalidSortOrderException', '$sortOrder must be an array with key => value pairs where value can only be "asc" or "desc".', 'E:S:002');
@@ -433,22 +354,15 @@ class MultiLanguageSupportModel extends CoreModel {
 		}
 		return new ModelResponse($entries, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
     }
-    /**
-     * @name            listTranslationsOfDomain()
+
+	/**
+	 * @param string     $domain
+	 * @param array|null $sortorder
+	 * @param array|null $limit
 	 *
-     * @since           1.0.8
-     * @version         1.1.0
-     * @author          Can Berkol
-     *
-     * @use             $this->listTranslations()
-     *
-     * @param           string          $domain
-     * @param           array           $sortorder
-     * @param           array           $limit
-     *
-     * @return          array           $response
-     */
-    public function listTranslationsOfDomain($domain, $sortorder = null, $limit = null){
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
+	 */
+    public function listTranslationsOfDomain(\string $domain, array $sortorder = null, array $limit = null){
         $condition = array('column' => $this->entity['t']['alias'].'.domain', 'comparison' => '=', 'value' => $domain);
         $filter[] = array(
             'glue' => 'and',
@@ -462,37 +376,21 @@ class MultiLanguageSupportModel extends CoreModel {
         return $this->listTranslations($filter, $sortorder, $limit);
     }
 
-    /**
-     * @name 			updateLanguage()
-     *
-     * @since			1.0.0
-     * @version         1.0.7
-     * @author          Can Berkol
-     *
-     * @use             $this->createException()
-     *
-     * @param           array           $data
-     *
-     * @return          array           $response
-     */
-    public function updateLanguage($data) {
-        return $this->updateLanguages(array($data));
+	/**
+	 * @param mixed $language
+	 *
+	 * @return array
+	 */
+    public function updateLanguage($language) {
+        return $this->updateLanguages(array($language));
     }
-    /**
-     * @name 			updateLanguages()
-     *  				Updates one or more product details in database.
-     *
-     * @since			1.0.0
-     * @version         1.0.9
-     * @author          Can Berkol
-     *
-     * @use             $this->createException()
-     *
-     * @param           array           $collection      Collection of Product entities or array of entity details.
-     *
-     * @return          array           $response
-     */
-    public function updateLanguages($collection) {
+
+	/**
+	 * @param array $collection
+	 *
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
+	 */
+    public function updateLanguages(array $collection) {
 		$timeStamp = time();
 		if (!is_array($collection)) {
 			return $this->createException('InvalidParameterValueException', 'Invalid parameter value. Parameter must be an array collection', 'E:S:001');
@@ -550,90 +448,3 @@ class MultiLanguageSupportModel extends CoreModel {
 		return new ModelResponse(null, 0, 0, null, true, 'E:D:004', 'One or more entities cannot be updated within database.', $timeStamp, time());
 	}
 }
-
-/**
- * Change Log
- * **************************************
- * v1.1.0                      25.05.2015
- * Can Berkol
- * **************************************
- * 	BF :: Deprecated call $this->resetResponse() removed.
- *
- * **************************************
- * v1.0.9                      01.05.2015
- * Can Berkol
- * **************************************
- * CR :: The class now uses ModelResponse.
- * CR :: $this->entity keys now use shortened values.
- *
- * **************************************
- * v1.0.8                      Can Berkol
- * 09.04.2014
- * **************************************
- * A listTranslations()
- * A listTranslationsOfDomain()
- *
- * **************************************
- * v1.0.7                      Can Berkol
- * 29.01.2014
- * **************************************
- * U deleteLangauges()
- * U insertLanguage()
- * U insertLanguages()
- * U updateLanguage()
- * U updateLanguages()
- *
- * **************************************
- * v1.0.6                      Can Berkol
- * 30.11.2013
- * **************************************
- * B getLanguage()
- *
- * **************************************
- * v1.0.5                      Can Berkol
- * 22.11.2013
- * **************************************
- * A listAllLanguages()
- * U listLanguages() is now private.
- *
- * **************************************
- * v1.0.4                      Can Berkol
- * 16.11.2013
- * **************************************
- * M Class now extends CoreModel
- * M Methods are now camelCase.
- *
- * **************************************
- * v1.0.3                      Can Berkol
- * 06.11.2013
- * **************************************
- * M Response codes updated.
- *
- * **************************************
- * v1.0.2                      Can Berkol
- * 10.10.2013
- * **************************************
- * M Overall bug fixes and message code sanitization.
- *
- * **************************************
- * v1.0.1                      Can Berkol
- * 16.08.2013
- * **************************************
- * B list_languages() Null filter query problem fixed.
- *
- * **************************************
- * v1.0.0                      Can Berkol
- * 05.08.2013
- * **************************************
- * A __construct()
- * A __destruct()
- * A delete_language()
- * A delete_languages()
- * A does_language_exist()
- * A getLanguage()
- * A insert_language()
- * A insert_languages()
- * A list_languages()
- * A update_language()
- * A update_languages()
- */

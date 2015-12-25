@@ -1,4 +1,17 @@
-Multi Language Support Management Bundle
-==============
+MultiLanguage Support Bundle
+ ==============
+ **Namespace**: BiberLtd\Bundle\MultiLanguageSupportBundle
 
-Provides multi-language support automation.
+ **Current Version**: v3.4.0
+
+ **Description**:
+
+ This bundle provides multi language features
+
+ **Requirements**:
+ - biberltd/core-bundle >= v3.4.0
+ - biberltd/site-management-bundle >= v3.4.0
+
+ **INSTALLATION**:
+
+ Add "**biberltd/multilanguage-support-bundle**" into your composer's require directive.

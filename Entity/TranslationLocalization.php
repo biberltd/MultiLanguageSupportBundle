@@ -1,17 +1,12 @@
 <?php
 /**
- * @name        TranslationLocalization
- * @package		BiberLtd\Bundle\CoreBundle\MultiLanguageSupportBundle
- *
  * @author		Can Berkol
- * @version     1.0.2
- * @date        26.05.2015
+ * @author		Said İmamoğlu
  *
- * @copyright   Biber Ltd. (http://www.biberltd.com)
- * @license     GPL v3.0
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @description Model / Entity class.
- *
+ * @date        23.12.2015
  */
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
@@ -28,6 +23,7 @@ class TranslationLocalization
 {
 	/**
 	 * @ORM\Column(type="text", nullable=false)
+	 * @var string
 	 */
 	private $phrase;
 
@@ -35,6 +31,7 @@ class TranslationLocalization
 	 * @ORM\Id
 	 * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language")
 	 * @ORM\JoinColumn(name="language", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+	 * @var \BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language
 	 */
 	private $language;
 
@@ -45,24 +42,16 @@ class TranslationLocalization
 	 *     inversedBy="localizations"
 	 * )
 	 * @ORM\JoinColumn(name="translation", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+	 * @var \BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation
 	 */
 	private $translation;
 
 	/**
-	 * @name            setLanguage ()
+	 * @param \BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language $language
 	 *
-	 * @author          Can Berkol
-	 *
-	 * @since           1.0.0
-	 * @version         1.0.0
-	 *
-	 * @use             $this->setModified()
-	 *
-	 * @param           mixed $language
-	 *
-	 * @return          object                $this
+	 * @return $this
 	 */
-	public function setLanguage($language) {
+	public function setLanguage(\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language $language) {
 		if(!$this->setModified('language', $language)->isModified()) {
 			return $this;
 		}
@@ -71,34 +60,18 @@ class TranslationLocalization
 	}
 
 	/**
-	 * @name            getLanguage ()
-	 *
-	 * @author          Can Berkol
-	 *
-	 * @since           1.0.0
-	 * @version         1.0.0
-	 *
-	 * @return          mixed           $this->language
+	 * @return \BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language
 	 */
 	public function getLanguage() {
 		return $this->language;
 	}
 
 	/**
-	 * @name            setPhrase ()
+	 * @param string $phrase
 	 *
-	 * @author          Can Berkol
-	 *
-	 * @since           1.0.0
-	 * @version         1.0.0
-	 *
-	 * @use             $this->setModified()
-	 *
-	 * @param           mixed $phrase
-	 *
-	 * @return          object                $this
+	 * @return $this
 	 */
-	public function setPhrase($phrase) {
+	public function setPhrase(\string $phrase) {
 		if(!$this->setModified('phrase', $phrase)->isModified()) {
 			return $this;
 		}
@@ -107,34 +80,18 @@ class TranslationLocalization
 	}
 
 	/**
-	 * @name            getPhrase ()
-	 *
-	 * @author          Can Berkol
-	 *
-	 * @since           1.0.0
-	 * @version         1.0.0
-	 *
-	 * @return          mixed           $this->phrase
+	 * @return string
 	 */
 	public function getPhrase() {
 		return $this->phrase;
 	}
 
 	/**
-	 * @name            setTranslation ()
+	 * @param \BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation $translation
 	 *
-	 * @author          Can Berkol
-	 *
-	 * @since           1.0.0
-	 * @version         1.0.0
-	 *
-	 * @use             $this->setModified()
-	 *
-	 * @param           mixed $translation
-	 *
-	 * @return          object                $this
+	 * @return $this
 	 */
-	public function setTranslation($translation) {
+	public function setTranslation(\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation $translation) {
 		if(!$this->setModified('translation', $translation)->isModified()) {
 			return $this;
 		}
@@ -143,30 +100,9 @@ class TranslationLocalization
 	}
 
 	/**
-	 * @name            getTranslation ()
-	 *
-	 * @author          Can Berkol
-	 *
-	 * @since           1.0.0
-	 * @version         1.0.0
-	 *
-	 * @return          mixed           $this->translation
+	 * @return \BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation
 	 */
 	public function getTranslation() {
 		return $this->translation;
 	}
 }
-/**
- * Change Log
- * v1.0.2                      26.05.2015
- * Can Berkol
- * **************************************
- * BF :: Namespaces in annotations fixed.
- *
- * **************************************
- * v1.0.1                      30.04.2015
- * TW #
- * Can Berkol
- * **************************************
- * ORM Changes.
- */

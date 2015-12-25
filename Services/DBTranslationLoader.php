@@ -1,19 +1,13 @@
 <?php
 /**
- * @vendor      BiberLtd
- * @package		BiberLtd\Bundle\MultiLanguageSupportBundle
- * @subpackage	Services
- * @name	    DBTranslationLoader
- *
  * @author		Can Berkol
+ * @author		Said İmamoğlu
  *
- * @copyright   Biber Ltd. (www.biberltd.com)
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @version     1.0.3
- * @date        26.05.2015
- *
+ * @date        23.12.2015
  */
-
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Services;
 
 use BiberLtd\Bundle\CoreBundle\CoreModel;
@@ -27,24 +21,19 @@ class DBTranslationLoader implements LoaderInterface{
     private $entity;
     private $kernel;
     private $orm;
+
     /**
-     * @name            __construct()
-     *                  Constructor.
+     * DBTranslationLoader constructor.
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           object          $kernel
-     * @param           string          $db_connection
-     * @param           string          $orm
+     * @param        $kernel
+     * @param string $db_connection
+     * @param string $orm
      */
-    public function __construct($kernel, $db_connection, $orm) {
+    public function __construct($kernel, \string $db_connection, \string $orm) {
         $this->entity = array(
-            'language' => array('name' => 'MultiLanguageSupportBundle:Language', 'alias' => 'l'),
-            'translation' => array('name' => 'MultiLanguageSupportBundle:Translation', 'alias' => 't'),
-            'translation_localization' => array('name' => 'MultiLanguageSupportBundle:TranslationLocalization', 'alias' => 'tl'),
+            'l' => array('name' => 'MultiLanguageSupportBundle:Language', 'alias' => 'l'),
+            't' => array('name' => 'MultiLanguageSupportBundle:Translation', 'alias' => 't'),
+            'tl' => array('name' => 'MultiLanguageSupportBundle:TranslationLocalization', 'alias' => 'tl'),
         );
         $this->dbConntection = $db_connection;
         $this->orm = $orm;
@@ -53,14 +42,7 @@ class DBTranslationLoader implements LoaderInterface{
     }
 
     /**
-     * @name            __destruct()
-     *                  Destructor.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
+     * Destructor
      */
     public function __destruct() {
         foreach ($this as $property => $value) {
@@ -69,21 +51,14 @@ class DBTranslationLoader implements LoaderInterface{
     }
 
     /**
-     * @name 			load()
-     *  				Translation loader load() implementation
+     * @param resource $resource
+     * @param string $locale
+     * @param string $domain
+     * @param int    $siteId
      *
-     * @since			1.0.0
-     * @version         1.0.3
-     * @author          Can Berkol
-     *
-     * @param           mixed           $resource
-     * @param           string          $locale
-     * @param           string          $domain
-     * @param           integer         $siteId
-     *
-     * @return          array           $catalogue
+     * @return bool|\Symfony\Component\Translation\MessageCatalogue
      */
-    public function load($resource, $locale, $domain = 'web', $siteId = 1){
+    public function load($resource, \string $locale, \string $domain = 'web', \integer $siteId = 1){
         $mlsModel = $this->kernel->getContainer()->get('multilanguagesupport.model');
         $siteModel = $this->kernel->getContainer()->get('sitemanagement.model');
         $response = $mlsModel->getLanguage($locale, 'iso_code');
@@ -115,19 +90,13 @@ class DBTranslationLoader implements LoaderInterface{
         }
         return $catalogue;
     }
+
     /**
-     * @name 			injectValuesIntoPlaceholders()
-     *  				Inject values into special place orders.
+     * @param string $phrase
      *
-     * @since			1.0.1
-     * @version         1.0.1
-     * @author          Can Berkol
-     *
-     * @param           string          $phrase
-     *
-     * @return          string
+     * @return mixed|string
      */
-    public function injectValuesIntoPlaceholders($phrase){
+    public function injectValuesIntoPlaceholders(\string $phrase){
         if(strpos('**', $phrase) === false){
             return $phrase;
         }
@@ -153,33 +122,3 @@ class DBTranslationLoader implements LoaderInterface{
         return $phrase;
     }
 }
-
-
-/**
- * Change Log
- * **************************************
- * v1.0.3                      26.05.2015
- * Can Berkol
- * **************************************
- * BF :: $response->error->exists fixed to response->error->exist
- *
- * **************************************
- * v1.0.2                      01.05.2015
- * Can Berkol
- * **************************************
- * CR :: The class now uses ModelResponse.
- *
- * **************************************
- * v1.0.1                      Can Berkol
- * 28.04.2014
- * **************************************
- * A injectValuesIntoPlaceholders()
- *
- * **************************************
- * v1.0.0                      Can Berkol
- * 27.03.2014
- * **************************************
- * A __construct()
- * A load()
- *
- */

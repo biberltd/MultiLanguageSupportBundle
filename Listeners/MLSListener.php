@@ -1,18 +1,13 @@
 <?php
 /**
- * @vendor      BiberLtd
- * @package        MultilanguageSupportBundle
- * @subpackage    Services
- * @name        MLSListener
+ * @author		Can Berkol
+ * @author		Said İmamoğlu
  *
- * @author        Can Berkol
- * @author        Said İmamoğlu
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @version     1.0.3
- * @date        08.08.2015
- *
+ * @date        23.12.2015
  */
-
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Listeners;
 
 use BiberLtd\Bundle\CoreBundle\Core as Core;
@@ -30,19 +25,13 @@ class MLSListener extends Core
     private $ignoreList;
 
     /**
-     * @name            __construct ()
-     *                  Constructor.
+     * MLSListener constructor.
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.2
-     *
-     * @param           string $container
-     * @param           array $kernel
-     * @param           array $db_options
+     * @param       $container
+     * @param       $kernel
+     * @param array $db_options
      */
-    public function __construct($container, $kernel, $db_options = array('default', 'doctrine'))
+    public function __construct($container, $kernel, array $db_options = array('default', 'doctrine'))
     {
         parent::__construct($kernel);
         $this->container = $container;
@@ -78,14 +67,7 @@ class MLSListener extends Core
     }
 
     /**
-     * @name            __destruct ()
-     *                  Destructor.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.3.0
-     *
+     * Destructor
      */
     public function __destruct()
     {
@@ -95,16 +77,7 @@ class MLSListener extends Core
     }
 
     /**
-     * @name            onKernelRequest ()
-     *                Called onKernelRequest event and handles browser language detection.
-     *
-     * @author          Can Berkol
-     *
-     * @since            1.0.0
-     * @version         1.0.0
-     *
-     * @param            GetResponseEvent $e
-     *
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $e
      */
     public function onKernelRequest(GetResponseEvent $e)
     {
@@ -174,10 +147,6 @@ class MLSListener extends Core
     }
 
     /**
-     * @name ReadCookie
-     * @author Said İmamoğlu
-     * @since 1.0.3
-     * @version 1.0.3
      * @return array|mixed
      */
     private function readCookie()
@@ -195,11 +164,8 @@ class MLSListener extends Core
     }
 
     /**
-     * @name ReadCookie
-     * @author Said İmamoğlu
-     * @since 1.0.3
-     * @version 1.0.3
      * @param $cookie
+     *
      * @return mixed
      */
     private function encryptCookie($cookie)
@@ -209,31 +175,3 @@ class MLSListener extends Core
         return $enc->input($data)->key($this->kernel->getContainer()->getParameter('app_key'))->encrypt('enc_reversible_pkey')->output();
     }
 }
-/**
- * Change Log
- * ****************************************
- * v1.0.3                        08.08.2015
- * Said İmamoğlu
- * ****************************************
- * BF :: Preferref language was not written into cookie when there was no re-route. Fixed.
- * ****************************************
- * v1.0.2                        25.05.2015
- * Can Berkol
- * ****************************************
- * BF :: Deprecated use of array style response is removed.
- *
- * ****************************************
- * v1.0.1                        28.04.2015
- * TW #
- * Can Berkol
- * ****************************************
- * - Unused "use" statements removed.
- *
- * ****************************************
- * v1.0.0                        26.04.2015
- * TW #
- * Can Berkol
- * ****************************************
- * - Class moved to MultiLanguageSupportBundle from CoreBundle.
- * - ignoreList added.
- */

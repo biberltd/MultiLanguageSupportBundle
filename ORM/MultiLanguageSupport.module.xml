@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<skipper version="3.2.1.1226" mvc="Symfony2" orm="Doctrine2">
+<skipper version="3.2.4.1256" mvc="Symfony2" orm="Doctrine2">
   <module name="\MultiLanguageSupportBundle" local-name="MultiLanguageSupportBundle" namespace="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" local-namespace="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" export-format="Doctrine2Php" export-path="../Entity" uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed">
     <entity name="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language" local-name="Language" namespace="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" description="Stores language definitions to be used in the site." uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514">
       <field name="id" description="System given id." type="integer" size="5" required="true" unique="true" primary="true" auto-increment="true" uuid="93714214-3a52-4799-9c0a-f74e937d83f0"/>
@@ -128,9 +128,9 @@
     </orm-attributes>
   </module>
   <visual-data>
-    <module uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed" bg-color="#FDF5F3" size-x="0" size-x2="700" size-y="56" size-y2="417"/>
     <entity uuid="2d0a30b3-246d-47fa-b198-331e87d4a439" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="200" position-y="294" size-x="0" size-x2="121" size-y="0" size-y2="59"/>
     <entity uuid="41bcf7a2-e5e3-42a8-af5a-39de1f0e86ff" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="400" position-y="44" size-x="0" size-x2="130" size-y="0" size-y2="115"/>
     <entity uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="100" position-y="94" size-x="0" size-x2="109" size-y="0" size-y2="115"/>
+    <module uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed" bg-color="#FDF5F3" size-x="0" size-x2="700" size-y="56" size-y2="417"/>
   </visual-data>
 </skipper>

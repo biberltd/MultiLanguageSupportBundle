@@ -1,3 +1,0 @@
-biberltd_core_multi_language_support_install_languages:
-    pattern:  install/languages
-    defaults: { _controller: BiberLtdCoreBundlesMultiLanguageSupportBundle:Install:languages, _locale: en}
