@@ -2,12 +2,12 @@ services:
     mls.listener:
         class:        BiberLtd\Bundle\MultiLanguageSupportBundle\Listeners\MLSListener
         tags:         [{name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -255}]
-        arguments:    [@service_container, @kernel, ["default", "doctrine"]]
+        arguments:    ["@service_container", "@kernel", ["default", "doctrine"]]
     multilanguagesupport.model:
           class:        BiberLtd\Bundle\MultiLanguageSupportBundle\Services\MultiLanguageSupportModel
-          arguments:    [@kernel, "default", "doctrine"]
+          arguments:    ["@kernel", "default", "doctrine"]
     translation.loader.db:
            class:        BiberLtd\Bundle\MultiLanguageSupportBundle\Services\DBTranslationLoader
-           arguments:    [@kernel, "default", "doctrine"]
+           arguments:    ["@kernel", "default", "doctrine"]
            tags:
                - { name: translation.loader, alias: db}

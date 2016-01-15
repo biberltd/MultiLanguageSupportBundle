@@ -83,7 +83,7 @@ class Language extends CoreEntity
 	 *
 	 * @return $this
 	 */
-    public function setIsoCode(\string $iso_code) {
+    public function setIsoCode(string $iso_code) {
         if(!$this->setModified('iso_code', $iso_code)->isModified()) {
             return $this;
         }
@@ -103,7 +103,7 @@ class Language extends CoreEntity
 	 *
 	 * @return $this
 	 */
-    public function setName(\string $name) {
+    public function setName(string $name) {
         if(!$this->setModified('name', $name)->isModified()) {
             return $this;
         }
@@ -123,7 +123,7 @@ class Language extends CoreEntity
 	 *
 	 * @return $this
 	 */
-    public function setSchema(\string $schema) {
+    public function setSchema(string $schema) {
         if(!$this->setModified('schema', $schema)->isModified()) {
             return $this;
         }
@@ -163,7 +163,7 @@ class Language extends CoreEntity
 	 *
 	 * @return $this
 	 */
-    public function setUrlKey(\string $url_key) {
+    public function setUrlKey(string $url_key) {
         if(!$this->setModified('url_key', $url_key)->isModified()) {
             return $this;
         }
@@ -183,7 +183,7 @@ class Language extends CoreEntity
 	 *
 	 * @return $this
 	 */
-    public function setStatus(\string $status) {
+    public function setStatus(string $status) {
         if($this->setModified('status', $status)->isModified()) {
             $this->status = $status;
         }

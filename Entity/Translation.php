@@ -97,7 +97,7 @@ class Translation extends CoreLocalizableEntity
 	 *
 	 * @return $this
 	 */
-    public function setKey(\string $key) {
+    public function setKey(string $key) {
         if(!$this->setModified('key', $key)->isModified()) {
             return $this;
         }
@@ -137,7 +137,7 @@ class Translation extends CoreLocalizableEntity
 	 *
 	 * @return $this
 	 */
-    public function setDomain(\string $domain) {
+    public function setDomain(string $domain) {
         if(!$this->setModified('domain', $domain)->isModified()) {
             return $this;
         }

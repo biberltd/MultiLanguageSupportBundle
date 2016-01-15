@@ -71,7 +71,7 @@ class TranslationLocalization
 	 *
 	 * @return $this
 	 */
-	public function setPhrase(\string $phrase) {
+	public function setPhrase(string $phrase) {
 		if(!$this->setModified('phrase', $phrase)->isModified()) {
 			return $this;
 		}

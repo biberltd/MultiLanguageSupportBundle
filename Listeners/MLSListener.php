@@ -58,7 +58,7 @@ class MLSListener extends Core
         );
         $response = $MLSModel->listAllLanguages(array("iso_code" => "asc"));
         if (!$response->error->exist) {
-            $language_codes = array();
+            $language_codes = [];
             foreach ($response->result->set as $language) {
                 $language_codes[] = $language->getIsoCode();
             }
@@ -155,7 +155,7 @@ class MLSListener extends Core
         $enc = $this->kernel->getContainer()->get('encryption');
         $encrypted_cookie = $cookie->get('bbr_member');
         if (empty($encrypted_cookie)) {
-            $cookie = array();
+            $cookie = [];
         } else {
             $cookie = $enc->input($encrypted_cookie)->key($this->kernel->getContainer()->getParameter('app_key'))->decrypt('enc_reversible_pkey')->output();
             $cookie = unserialize(base64_decode($cookie));

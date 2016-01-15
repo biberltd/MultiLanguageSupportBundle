@@ -29,14 +29,14 @@ class DBTranslationLoader implements LoaderInterface{
      * @param string $db_connection
      * @param string $orm
      */
-    public function __construct($kernel, \string $db_connection, \string $orm) {
+    public function __construct($kernel, string $db_connection = null, string $orm = null) {
         $this->entity = array(
             'l' => array('name' => 'MultiLanguageSupportBundle:Language', 'alias' => 'l'),
             't' => array('name' => 'MultiLanguageSupportBundle:Translation', 'alias' => 't'),
             'tl' => array('name' => 'MultiLanguageSupportBundle:TranslationLocalization', 'alias' => 'tl'),
         );
-        $this->dbConntection = $db_connection;
-        $this->orm = $orm;
+        $this->dbConntection = $db_connection  ?? 'default';
+        $this->orm = $orm ?? 'doctrine';
         $this->kernel = $kernel;
         $this->em = $this->kernel->getContainer()->get($this->orm)->getManager($this->dbConntection);
     }
@@ -52,13 +52,15 @@ class DBTranslationLoader implements LoaderInterface{
 
     /**
      * @param resource $resource
-     * @param string $locale
-     * @param string $domain
-     * @param int    $siteId
+     * @param string      $locale
+     * @param string|null $domain
+     * @param int|null    $siteId
      *
      * @return bool|\Symfony\Component\Translation\MessageCatalogue
      */
-    public function load($resource, \string $locale, \string $domain = 'web', \integer $siteId = 1){
+    public function load($resource, string $locale, string $domain = null, int $siteId = null){
+        $domain = $domain ?? 'web';
+        $siteId = $siteId ?? 1;
         $mlsModel = $this->kernel->getContainer()->get('multilanguagesupport.model');
         $siteModel = $this->kernel->getContainer()->get('sitemanagement.model');
         $response = $mlsModel->getLanguage($locale, 'iso_code');
@@ -74,7 +76,7 @@ class DBTranslationLoader implements LoaderInterface{
         /** Grab all translations of domain */
         $response = $mlsModel->listTranslationsOfDomain($domain, array('key' => 'asc'));
         if($response->error->exist){
-            $translations = array();
+            $translations = [];
         }
         else{
             $translations = $response->result->set;
@@ -96,7 +98,7 @@ class DBTranslationLoader implements LoaderInterface{
      *
      * @return mixed|string
      */
-    public function injectValuesIntoPlaceholders(\string $phrase){
+    public function injectValuesIntoPlaceholders(string $phrase){
         if(strpos('**', $phrase) === false){
             return $phrase;
         }

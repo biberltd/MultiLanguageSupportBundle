@@ -3,38 +3,28 @@
  * @author		Can Berkol
  * @author		Said İmamoğlu
  *
- * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2016
  * @license     GPLv3
  *
- * @date        23.12.2015
+ * @date        15.01.2016
  */
-
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Services;
-/** Required for better & instant error handling for the support team */
 use BiberLtd\Bundle\CoreBundle\CoreModel;
 use BiberLtd\Bundle\CoreBundle\Exceptions as CoreExceptions;
-/** Entities to be used */
 use BiberLtd\Bundle\CoreBundle\Responses\ModelResponse;
 use BiberLtd\Bundle\MultiLanguageSupportBundle\Entity as BundleEntity;
-/** External Services To Use */
 use BiberLtd\Bundle\SiteManagementBundle\Services as SMServices;
 
 class MultiLanguageSupportModel extends CoreModel {
-    /**
-     * @name            __construct()
-     *                  Constructor.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.9
-     *
-     * @param           object          $kernel
-     * @param           string          $dbConnection   Database connection key as set in app/config.yml
-     * @param           string          $orm            ORM that is used.
-     */
-    public function __construct($kernel, $dbConnection = 'default', $orm = 'doctrine') {
-        parent::__construct($kernel, $dbConnection, $orm);
+	/**
+	 * MultiLanguageSupportModel constructor.
+	 *
+	 * @param object $kernel
+	 * @param null   $dbConnection
+	 * @param null   $orm
+	 */
+    public function __construct($kernel, $dbConnection = null, $orm = null) {
+        parent::__construct($kernel, $dbConnection ?? 'default', $orm ?? 'doctrine');
         /**
          * Register entity names for easy reference.
          */
@@ -69,10 +59,7 @@ class MultiLanguageSupportModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
     public function deleteLanguages(array $collection) {
-		$timeStamp = time();
-        if (!is_array($collection)) {
-            return $this->createException('InvalidParameterValueException', 'Invalid parameter value. Parameter must be an array collection', 'E:S:001');
-        }
+		$timeStamp = microtime();
         $countDeleted = 0;
         foreach($collection as $entry){
             if($entry instanceof BundleEntity\Language){
@@ -89,21 +76,22 @@ class MultiLanguageSupportModel extends CoreModel {
             }
         }
         if($countDeleted < 0){
- 			return new ModelResponse(null, 0, 0, null, true, 'E:E:001', 'Unable to delete all or some of the selected entries.', $timeStamp, time());
+ 			return new ModelResponse(null, 0, 0, null, true, 'E:E:001', 'Unable to delete all or some of the selected entries.', $timeStamp, microtime());
         }
         $this->em->flush();
 
-        return new ModelResponse(null, 0, 0, null, false, 'S:D:001', 'Selected entries have been successfully removed from database.', $timeStamp, time());
+        return new ModelResponse(null, 0, 0, null, false, 'S:D:001', 'Selected entries have been successfully removed from database.', $timeStamp, microtime());
     }
 
 	/**
 	 * @param mixed $language
-	 * @param bool $bypass
+	 * @param bool|null $bypass
 	 *
-	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|bool|mixed
+	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|bool
 	 */
-	public function doesLanguageExist($language, \bool $bypass = false) {
-		$timeStamp = time();
+	public function doesLanguageExist($language, bool $bypass = null) {
+		$timeStamp = microtime();
+		$bypass = $bypass ?? false;
 		$exist = false;
 
 		$response = $this->getLanguage($language);
@@ -121,7 +109,7 @@ class MultiLanguageSupportModel extends CoreModel {
 		if ($bypass) {
 			return $exist;
 		}
-		return new ModelResponse(true, 1, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
+		return new ModelResponse(true, 1, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
 	}
 
 	/**
@@ -130,9 +118,9 @@ class MultiLanguageSupportModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
 	public function getLanguage($language) {
-		$timeStamp = time();
+		$timeStamp = microtime();
 		if($language instanceof BundleEntity\Language){
-			return new ModelResponse($language, 1, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
+			return new ModelResponse($language, 1, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
 		}
 		$result = null;
 		switch($language){
@@ -147,10 +135,10 @@ class MultiLanguageSupportModel extends CoreModel {
 				break;
 		}
 		if(is_null($result)){
-			return new ModelResponse($result, 1, 0, null, true, 'E:D:002', 'Unable to find request entry in database.', $timeStamp, time());
+			return new ModelResponse($result, 1, 0, null, true, 'E:D:002', 'Unable to find request entry in database.', $timeStamp, microtime());
 		}
 
-		return new ModelResponse($result, 1, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
+		return new ModelResponse($result, 1, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
 	}
 
 	/**
@@ -168,12 +156,9 @@ class MultiLanguageSupportModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
 	public function insertLanguages(array $collection) {
-		$timeStamp = time();
-		if (!is_array($collection)) {
-			return $this->createException('InvalidParameterValueException', 'Invalid parameter value. Parameter must be an array collection', 'E:S:001');
-		}
+		$timeStamp = microtime();
 		$countInserts = 0;
-		$insertedItems = array();
+		$insertedItems = [];
 		foreach($collection as $data){
 			if($data instanceof BundleEntity\Language){
 				$entity = $data;
@@ -209,9 +194,9 @@ class MultiLanguageSupportModel extends CoreModel {
 		}
 		if($countInserts > 0){
 			$this->em->flush();
-			return new ModelResponse($insertedItems, $countInserts, 0, null, false, 'S:D:003', 'Selected entries have been successfully inserted into database.', $timeStamp, time());
+			return new ModelResponse($insertedItems, $countInserts, 0, null, false, 'S:D:003', 'Selected entries have been successfully inserted into database.', $timeStamp, microtime());
 		}
-		return new ModelResponse(null, 0, 0, null, true, 'E:D:003', 'One or more entities cannot be inserted into database.', $timeStamp, time());
+		return new ModelResponse(null, 0, 0, null, true, 'E:D:003', 'One or more entities cannot be inserted into database.', $timeStamp, microtime());
 	}
 
 	/**
@@ -232,12 +217,8 @@ class MultiLanguageSupportModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
     public function listLanguages(array $filter = null, array $sortOrder = null, array $limit = null) {
-		$timeStamp = time();
-        if (!is_array($sortOrder) && !is_null($sortOrder)) {
-            return $this->createException('InvalidSortOrderException', '$sortOrder must be an array with key => value pairs where value can only be "asc" or "desc".', 'E:S:002');
-        }
+		$timeStamp = microtime();
         $oStr = $wStr = $gStr = $fStr = '';
-
 
 		$qStr = 'SELECT '.$this->entity['l']['alias']
                     .' FROM '.$this->entity['l']['name'].' '.$this->entity['l']['alias'];
@@ -274,9 +255,9 @@ class MultiLanguageSupportModel extends CoreModel {
 
         $totalRows = count($result);
         if ($totalRows < 1) {
-			return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, time());
+			return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime());
         }
-		return new ModelResponse($result, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
+		return new ModelResponse($result, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
     }
 
 	/**
@@ -287,10 +268,7 @@ class MultiLanguageSupportModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
     public function listTranslations(array $filter = null, array $sortOrder = null, array $limit = null){
-		$timeStamp = time();
-        if (!is_array($sortOrder) && !is_null($sortOrder)) {
-			return $this->createException('InvalidSortOrderException', '$sortOrder must be an array with key => value pairs where value can only be "asc" or "desc".', 'E:S:002');
-        }
+		$timeStamp = microtime();
         $oStr = $wStr = $gStr = $fStr = '';
 
 		$qStr = 'SELECT '.$this->entity['tl']['alias'].', '.$this->entity['t']['alias']
@@ -325,7 +303,7 @@ class MultiLanguageSupportModel extends CoreModel {
             $lQuery = $this->em->createQuery($lqStr);
             $lQuery = $this->addLimit($lQuery, $limit);
             $result = $lQuery->getResult();
-            $selectedIds = array();
+            $selectedIds = [];
             foreach($result as $entry){
                 $selectedIds[] = $entry->getId();
             }
@@ -337,8 +315,8 @@ class MultiLanguageSupportModel extends CoreModel {
 
         $result = $query->getResult();
 
-        $entries = array();
-        $unique = array();
+        $entries = [];
+        $unique = [];
         foreach ($result as $entry) {
             $id = $entry->getTranslation()->getId();
             if (!isset($unique[$id])) {
@@ -350,9 +328,9 @@ class MultiLanguageSupportModel extends CoreModel {
 
 		$totalRows = count($entries);
 		if ($totalRows < 1) {
-			return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, time());
+			return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime());
 		}
-		return new ModelResponse($entries, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
+		return new ModelResponse($entries, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
     }
 
 	/**
@@ -362,7 +340,7 @@ class MultiLanguageSupportModel extends CoreModel {
 	 *
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
-    public function listTranslationsOfDomain(\string $domain, array $sortorder = null, array $limit = null){
+    public function listTranslationsOfDomain(string $domain, array $sortorder = null, array $limit = null){
         $condition = array('column' => $this->entity['t']['alias'].'.domain', 'comparison' => '=', 'value' => $domain);
         $filter[] = array(
             'glue' => 'and',
@@ -391,12 +369,9 @@ class MultiLanguageSupportModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
     public function updateLanguages(array $collection) {
-		$timeStamp = time();
-		if (!is_array($collection)) {
-			return $this->createException('InvalidParameterValueException', 'Invalid parameter value. Parameter must be an array collection', 'E:S:001');
-		}
+		$timeStamp = microtime();
         $countUpdates = 0;
-        $updatedItems = array();
+        $updatedItems = [];
         foreach($collection as $data){
             if($data instanceof BundleEntity\Language){
                 $entity = $data;
@@ -443,8 +418,8 @@ class MultiLanguageSupportModel extends CoreModel {
         }
 		if($countUpdates > 0){
 			$this->em->flush();
-			return new ModelResponse($updatedItems, $countUpdates, 0, null, false, 'S:D:004', 'Selected entries have been successfully updated within database.', $timeStamp, time());
+			return new ModelResponse($updatedItems, $countUpdates, 0, null, false, 'S:D:004', 'Selected entries have been successfully updated within database.', $timeStamp, microtime());
 		}
-		return new ModelResponse(null, 0, 0, null, true, 'E:D:004', 'One or more entities cannot be updated within database.', $timeStamp, time());
+		return new ModelResponse(null, 0, 0, null, true, 'E:D:004', 'One or more entities cannot be updated within database.', $timeStamp, microtime());
 	}
 }
