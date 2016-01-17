@@ -104,7 +104,7 @@ class MLSListener extends Core
         /**
          * READ COOKIE
          */
-        $cookie = $this->readCookie();
+        $cookie = $this->readCookie($request);
         if (strlen($path_params[0]) == 2) {
             /** URI has locale in it. Therefore we check if the locale is defined within our system. */
             if (!in_array(strtolower($path_params[0]), $this->languages)) {
@@ -113,7 +113,7 @@ class MLSListener extends Core
                 $reroute = true;
             } else {
                 $preferred_locale = $path_params[0];
-                $this->kernel->getContainer()->get('request')->setLocale($preferred_locale);
+                $request->setLocale($preferred_locale);
                 $this->kernel->getContainer()->get('session')->set('_locale', $preferred_locale);
             }
         } else {
@@ -135,7 +135,7 @@ class MLSListener extends Core
         $encryptedCookie = $this->encryptCookie($cookie);
         if ($reroute) {
             /** Set cookie */
-            $this->kernel->getContainer()->get('request')->setLocale($preferred_locale);
+            $request->setLocale($preferred_locale);
             $this->kernel->getContainer()->get('session')->set('_locale', $preferred_locale);
             /** Redirect */
             $response = new RedirectResponse($url);
@@ -149,9 +149,9 @@ class MLSListener extends Core
     /**
      * @return array|mixed
      */
-    private function readCookie()
+    private function readCookie($request)
     {
-        $cookie = $this->kernel->getContainer()->get('request')->cookies;
+        $cookie = $request->cookies;
         $enc = $this->kernel->getContainer()->get('encryption');
         $encrypted_cookie = $cookie->get('bbr_member');
         if (empty($encrypted_cookie)) {
