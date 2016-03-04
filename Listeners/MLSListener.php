@@ -98,7 +98,7 @@ class MLSListener extends Core
          *
          * The first parameter in path_info is the language code except the ignore list.
          */
-        if (in_array($path_params, $this->ignoreList)) {
+        if (in_array($path_params[0], $this->ignoreList)) {
             return;
         }
         /**
