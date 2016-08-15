@@ -65,6 +65,6 @@ CREATE TABLE `translation_localization` (
   UNIQUE KEY `idxUTranslationLocalization` (`translation`,`language`) USING BTREE,
   KEY `idxFTranslationLocalizationLanguage` (`language`) USING BTREE,
   KEY `idxFLocalizedTranslation` (`translation`) USING BTREE,
-  CONSTRAINT `idxFLocalizedTranslation` FOREIGN KEY (`translation`) REFERENCES `translation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `idxFTranslationLocalizationLanguage` FOREIGN KEY (`language`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `idxFTranslationOfTranslationLocalization` FOREIGN KEY (`translation`) REFERENCES `translation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idxFLanguageOfTranslationLocalization` FOREIGN KEY (`language`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci ROW_FORMAT=COMPACT;
