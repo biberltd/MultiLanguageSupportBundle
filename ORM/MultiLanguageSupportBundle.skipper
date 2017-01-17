@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<skipper version="3.2.6.1309" mvc="Symfony2" orm="Doctrine2" name="MultiLanguageSupportBundle" uuid="a9958145-165c-4f55-885a-b7a59126a833">
+  <external-module storage-path="../../site-management-bundle/ORM/SiteManagement.module.xml"/>
+  <external-module storage-path="MultiLanguageSupport.module.xml"/>
+  <visual-data>
+    <association uuid="45c125cd-0ba3-4a9c-973e-92bbcfb91a59" color="#969696"/>
+    <association uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7" color="#969696"/>
+    <association uuid="691cd89a-3534-4a4c-bf70-544fa15a4c35" color="#969696"/>
+    <association uuid="71f15a54-6bc9-4510-84b1-2b2817781440" caption1-position-x="29" caption1-position-y="3" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="dcbf1caf-6474-4dfe-90be-7b58aa71c5c7" caption1-position-x="0" caption1-position-y="0" center-position-x="-1" center-position-y="0" color="#969696"/>
+    <module uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed" position-x="640" position-y="106"/>
+    <module uuid="860bb986-ef71-4cef-9da2-f560e58c2569" position-x="50" position-y="50"/>
+    <project uuid="a9958145-165c-4f55-885a-b7a59126a833" size-x="0" size-x2="1390" size-y="0" size-y2="573"/>
+  </visual-data>
+</skipper>

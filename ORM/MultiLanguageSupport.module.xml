@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<skipper version="3.2.4.1256" mvc="Symfony2" orm="Doctrine2">
+<skipper version="3.2.6.1309" mvc="Symfony2" orm="Doctrine2">
   <module name="\MultiLanguageSupportBundle" local-name="MultiLanguageSupportBundle" namespace="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" local-namespace="BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" export-format="Doctrine2Php" export-path="../Entity" uuid="264804cf-5ddd-4089-aaa2-d7c0f129a5ed">
     <entity name="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language" local-name="Language" namespace="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity" description="Stores language definitions to be used in the site." uuid="7ce99bbb-4d97-4ee5-8703-dfe82e965514">
       <field name="id" description="System given id." type="integer" size="5" required="true" unique="true" primary="true" auto-increment="true" uuid="93714214-3a52-4799-9c0a-f74e937d83f0"/>
@@ -109,13 +109,13 @@
         <attribute name="export-file-name">TranslationLocalization.php</attribute>
       </orm-attributes>
     </entity>
-    <association from="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization" to="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language" caption="idxFTranslationLocalizationLanguage" inverse-alias="language" many-owner="true" many-inverse="false" parent-required="true" uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7">
+    <association from="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization" to="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Language" caption="idxFLanguageOfTranslationLocalization" inverse-alias="language" many-owner="true" many-inverse="false" parent-required="true" uuid="4a21a97e-810e-4e2d-a330-69d23cf801c7">
       <association-field from="language" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
-    <association from="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization" to="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation" caption="idxFLocalizedTranslation" owner-alias="localizations" inverse-alias="translation" many-owner="true" many-inverse="false" parent-required="true" uuid="71f15a54-6bc9-4510-84b1-2b2817781440">
+    <association from="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\TranslationLocalization" to="\BiberLtd\Bundle\MultiLanguageSupportBundle\Entity\Translation" caption="idxFTranslationOfTranslationLocalization" owner-alias="" inverse-alias="translation" many-owner="true" many-inverse="false" parent-required="true" uuid="71f15a54-6bc9-4510-84b1-2b2817781440">
       <association-field from="translation" to="id"/>
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
