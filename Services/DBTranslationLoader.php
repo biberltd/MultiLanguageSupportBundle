@@ -87,8 +87,11 @@ class DBTranslationLoader implements LoaderInterface{
             /**
              * Replace special place holders.
              */
-            $phrase = $this->injectValuesIntoPlaceholders($translation->getLocalization($locale)->getPhrase());
-            $catalogue->set($translation->getKey(), $phrase, $domain);
+            $translationLoader = $translation->getLocalization($locale);
+            if (isset($translationLoader)) {
+                $phrase = $this->injectValuesIntoPlaceholders($translationLoader->getPhrase());
+                $catalogue->set($translation->getKey(), $phrase, $domain);
+            }
         }
         return $catalogue;
     }
