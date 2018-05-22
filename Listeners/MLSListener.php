@@ -1,18 +1,13 @@
 <?php
 /**
- * @vendor      BiberLtd
- * @package        MultilanguageSupportBundle
- * @subpackage    Services
- * @name        MLSListener
+ * @author		Can Berkol
+ * @author		Said İmamoğlu
  *
- * @author        Can Berkol
- * @author        Said İmamoğlu
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @version     1.0.3
- * @date        08.08.2015
- *
+ * @date        23.12.2015
  */
-
 namespace BiberLtd\Bundle\MultiLanguageSupportBundle\Listeners;
 
 use BiberLtd\Bundle\CoreBundle\Core as Core;
@@ -30,19 +25,13 @@ class MLSListener extends Core
     private $ignoreList;
 
     /**
-     * @name            __construct ()
-     *                  Constructor.
+     * MLSListener constructor.
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.2
-     *
-     * @param           string $container
-     * @param           array $kernel
-     * @param           array $db_options
+     * @param       $container
+     * @param       $kernel
+     * @param array $db_options
      */
-    public function __construct($container, $kernel, $db_options = array('default', 'doctrine'))
+    public function __construct($container, $kernel, array $db_options = array('default', 'doctrine'))
     {
         parent::__construct($kernel);
         $this->container = $container;
@@ -69,7 +58,7 @@ class MLSListener extends Core
         );
         $response = $MLSModel->listAllLanguages(array("iso_code" => "asc"));
         if (!$response->error->exist) {
-            $language_codes = array();
+            $language_codes = [];
             foreach ($response->result->set as $language) {
                 $language_codes[] = $language->getIsoCode();
             }
@@ -78,14 +67,7 @@ class MLSListener extends Core
     }
 
     /**
-     * @name            __destruct ()
-     *                  Destructor.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.3.0
-     *
+     * Destructor
      */
     public function __destruct()
     {
@@ -95,16 +77,7 @@ class MLSListener extends Core
     }
 
     /**
-     * @name            onKernelRequest ()
-     *                Called onKernelRequest event and handles browser language detection.
-     *
-     * @author          Can Berkol
-     *
-     * @since            1.0.0
-     * @version         1.0.0
-     *
-     * @param            GetResponseEvent $e
-     *
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $e
      */
     public function onKernelRequest(GetResponseEvent $e)
     {
@@ -117,7 +90,7 @@ class MLSListener extends Core
         if ($request->isSecure()) {
             $protocol = 'https://';
         }
-        $preferred_locale = $request->getPreferredLanguage($this->languages);
+        $preferred_locale = "tr";
         $reroute = false;
         /**
          * IMPORTANT
@@ -125,25 +98,24 @@ class MLSListener extends Core
          *
          * The first parameter in path_info is the language code except the ignore list.
          */
-        if (in_array($path_params, $this->ignoreList)) {
+        if (in_array($path_params[0], $this->ignoreList)) {
             return;
         }
         /**
          * READ COOKIE
          */
-        $cookie = $this->readCookie();
+        $cookie = $this->readCookie($request);
         if (strlen($path_params[0]) == 2) {
-            /** URI has locale in it. Therefore we check if the locale is defined within our system. */
-            if (!in_array(strtolower($path_params[0]), $this->languages)) {
-                /** If URI given locale is not one of our system languages then set the locale to preferred one. */
-                $path_params[0] = $preferred_locale;
-                $reroute = true;
-            } else {
-                $preferred_locale = $path_params[0];
-                $this->kernel->getContainer()->get('request')->setLocale($preferred_locale);
-                $this->kernel->getContainer()->get('session')->set('_locale', $preferred_locale);
-            }
+
+            $path_info = '/' . implode('/', array_diff($path_params,[$path_params[0]]));
+            $url = $protocol . $host . $base_url . $path_info;
+            $preferred_locale = "tr";
+            $request->setLocale($preferred_locale);
+            $this->kernel->getContainer()->get('session')->set('_locale', $preferred_locale);
+            $reroute = true;
         } else {
+            $path_info = '/' . implode('/', $path_params);
+            $url = $protocol . $host . $base_url . $path_info;
             /**
              * If URI does not have locale in it; then we'll add the preferred locale to it.
              * But first we will check the cookie for language.
@@ -152,17 +124,14 @@ class MLSListener extends Core
                 $preferred_locale = $cookie['locale'];
             }
             array_unshift($path_params, $preferred_locale);
-            $reroute = true;
         }
         /** Finally we create the new URL and redirect the visitor to the localized version of the page. */
-        $path_info = '/' . implode('/', $path_params);
-        $url = $protocol . $host . $base_url . $path_info;
 
         $cookie['locale'] = $preferred_locale;
         $encryptedCookie = $this->encryptCookie($cookie);
         if ($reroute) {
             /** Set cookie */
-            $this->kernel->getContainer()->get('request')->setLocale($preferred_locale);
+            $request->setLocale($preferred_locale);
             $this->kernel->getContainer()->get('session')->set('_locale', $preferred_locale);
             /** Redirect */
             $response = new RedirectResponse($url);
@@ -174,19 +143,15 @@ class MLSListener extends Core
     }
 
     /**
-     * @name ReadCookie
-     * @author Said İmamoğlu
-     * @since 1.0.3
-     * @version 1.0.3
      * @return array|mixed
      */
-    private function readCookie()
+    private function readCookie($request)
     {
-        $cookie = $this->kernel->getContainer()->get('request')->cookies;
+        $cookie = $request->cookies;
         $enc = $this->kernel->getContainer()->get('encryption');
         $encrypted_cookie = $cookie->get('bbr_member');
         if (empty($encrypted_cookie)) {
-            $cookie = array();
+            $cookie = [];
         } else {
             $cookie = $enc->input($encrypted_cookie)->key($this->kernel->getContainer()->getParameter('app_key'))->decrypt('enc_reversible_pkey')->output();
             $cookie = unserialize(base64_decode($cookie));
@@ -195,11 +160,8 @@ class MLSListener extends Core
     }
 
     /**
-     * @name ReadCookie
-     * @author Said İmamoğlu
-     * @since 1.0.3
-     * @version 1.0.3
      * @param $cookie
+     *
      * @return mixed
      */
     private function encryptCookie($cookie)
@@ -209,31 +171,3 @@ class MLSListener extends Core
         return $enc->input($data)->key($this->kernel->getContainer()->getParameter('app_key'))->encrypt('enc_reversible_pkey')->output();
     }
 }
-/**
- * Change Log
- * ****************************************
- * v1.0.3                        08.08.2015
- * Said İmamoğlu
- * ****************************************
- * BF :: Preferref language was not written into cookie when there was no re-route. Fixed.
- * ****************************************
- * v1.0.2                        25.05.2015
- * Can Berkol
- * ****************************************
- * BF :: Deprecated use of array style response is removed.
- *
- * ****************************************
- * v1.0.1                        28.04.2015
- * TW #
- * Can Berkol
- * ****************************************
- * - Unused "use" statements removed.
- *
- * ****************************************
- * v1.0.0                        26.04.2015
- * TW #
- * Can Berkol
- * ****************************************
- * - Class moved to MultiLanguageSupportBundle from CoreBundle.
- * - ignoreList added.
- */
